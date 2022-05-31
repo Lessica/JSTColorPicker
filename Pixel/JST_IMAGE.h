@@ -4,9 +4,10 @@
 #import <stdint.h>
 #import "JST_BOOL.h"
 #import "JST_COLOR.h"
+#import "JST_ORIENTATION.h"
 
 struct JST_IMAGE {
-    uint8_t orientation;
+    JST_ORIENTATION orientation;
     int width;
     int height;
     JST_COLOR *pixels;

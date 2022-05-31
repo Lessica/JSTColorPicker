@@ -98,8 +98,12 @@
 	<false/>
 	<key>defaults:togglePrimaryInspectorHSBFormat</key>
 	<false/>
+	<key>defaults:togglePrimaryInspectorFormat</key>
+	<string>original</string>
 	<key>defaults:toggleSecondaryInspectorHSBFormat</key>
 	<false/>
+	<key>defaults:toggleSecondaryInspectorFormat</key>
+	<string>original</string>
 	<key>defaults:toggleTemplateDetailedInformation</key>
 	<false/>
 	<key>defaults:usesAlternativeAreaRepresentation</key>

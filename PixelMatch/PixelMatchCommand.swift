@@ -84,13 +84,13 @@ struct PixelMatchCommand: ParsableCommand {
             guard let nsimg1 = NSImage(data: img1Data) else {
                 throw PixelMatchService.Error.cannotLoadImage(url: img1URL)
             }
-            let img1 = JSTPixelImage(nsImage: nsimg1)
+            let img1 = JSTPixelImage(systemImage: nsimg1)
 
             let img2Data = try Data(contentsOf: img2URL)
             guard let nsimg2 = NSImage(data: img2Data) else {
                 throw PixelMatchService.Error.cannotLoadImage(url: img2URL)
             }
-            let img2 = JSTPixelImage(nsImage: nsimg2)
+            let img2 = JSTPixelImage(systemImage: nsimg2)
 
             let output = try PixelMatchCommand.service.performConcurrentPixelMatch(img1, img2, options: opts)
             try output

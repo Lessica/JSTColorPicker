@@ -178,7 +178,10 @@ final class PixelMatchService {
         img.pointee.height = Int32(totalRows)
         img.pointee.pixels = outputsPointer.baseAddress
         isProcessing = false
-        return JSTPixelImage(internalPointer: img)
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let pixelImg = JSTPixelImage(internalPointer: img, colorSpace: colorSpace)
+        return pixelImg
     }
     
 }

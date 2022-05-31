@@ -589,6 +589,17 @@
 		CCF26AA727E860C200BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
 		CCF26AA827E8610800BEFFDE /* DecodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */; };
 		CCF26AA927E8610A00BEFFDE /* EncodingContainer+AnyCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */; };
+		CCF36C002845D8BC0039D7D2 /* JSTPixelColor.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BF62845D8BB0039D7D2 /* JSTPixelColor.h */; };
+		CCF36C012845D8BC0039D7D2 /* JSTPixelImage.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BF72845D8BB0039D7D2 /* JSTPixelImage.h */; };
+		CCF36C022845D8BC0039D7D2 /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF36BF82845D8BB0039D7D2 /* JSTPixelImage.m */; };
+		CCF36C042845D8BC0039D7D2 /* JST_BOOL.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BFA2845D8BB0039D7D2 /* JST_BOOL.h */; };
+		CCF36C052845D8BC0039D7D2 /* JST_COLOR.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BFB2845D8BB0039D7D2 /* JST_COLOR.h */; };
+		CCF36C062845D8BC0039D7D2 /* JST_ORIENTATION.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BFC2845D8BB0039D7D2 /* JST_ORIENTATION.h */; };
+		CCF36C072845D8BC0039D7D2 /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF36BFD2845D8BB0039D7D2 /* JSTPixelColor.m */; };
+		CCF36C082845D8BC0039D7D2 /* JST_POS.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BFE2845D8BB0039D7D2 /* JST_POS.h */; };
+		CCF36C092845D8BC0039D7D2 /* JST_IMAGE.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF36BFF2845D8BC0039D7D2 /* JST_IMAGE.h */; };
+		CCF36C0B2845EEC40039D7D2 /* InspectorFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36C0A2845EEC40039D7D2 /* InspectorFormat.swift */; };
+		CCF36C0C2845EEC40039D7D2 /* InspectorFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36C0A2845EEC40039D7D2 /* InspectorFormat.swift */; };
 		CCF679D5255AC6AD00061A51 /* libimobiledevice-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */; };
 		CCF679E1255AC6CD00061A51 /* libusbmuxd-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */; };
 		CCF679E2255AC6CD00061A51 /* libplist-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF679E0255AC6CD00061A51 /* libplist-2.0.a */; };
@@ -634,8 +645,6 @@
 		D60B0F4324286AA30034F21C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B0F4224286AA30034F21C /* main.m */; };
 		D60B0F52242887A10034F21C /* AppleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10823D1FDB000D76CB5 /* AppleDevice.m */; };
 		D60B0F53242887A10034F21C /* JSTPairedDeviceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D647B10523D1A52000D76CB5 /* JSTPairedDeviceStore.m */; };
-		D60B0F9024288D000034F21C /* JSTPixelColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */; };
-		D60B0F9124288D000034F21C /* JSTPixelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */; };
 		D60B0F9224288D3F0034F21C /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
 		D60B0F9524288D920034F21C /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
 		D60B0F9824288EFA0034F21C /* libpixel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D60B0F8724288CF20034F21C /* libpixel.a */; };
@@ -1760,6 +1769,16 @@
 		CCED7D42262D83FA00F2C965 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CCF26A9E27E85FF900BEFFDE /* DecodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
 		CCF26A9F27E85FFA00BEFFDE /* EncodingContainer+AnyCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EncodingContainer+AnyCollection.swift"; sourceTree = "<group>"; };
+		CCF36BF62845D8BB0039D7D2 /* JSTPixelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelColor.h; sourceTree = "<group>"; };
+		CCF36BF72845D8BB0039D7D2 /* JSTPixelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelImage.h; sourceTree = "<group>"; };
+		CCF36BF82845D8BB0039D7D2 /* JSTPixelImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelImage.m; sourceTree = "<group>"; };
+		CCF36BFA2845D8BB0039D7D2 /* JST_BOOL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_BOOL.h; sourceTree = "<group>"; };
+		CCF36BFB2845D8BB0039D7D2 /* JST_COLOR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_COLOR.h; sourceTree = "<group>"; };
+		CCF36BFC2845D8BB0039D7D2 /* JST_ORIENTATION.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_ORIENTATION.h; sourceTree = "<group>"; };
+		CCF36BFD2845D8BB0039D7D2 /* JSTPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelColor.m; sourceTree = "<group>"; };
+		CCF36BFE2845D8BB0039D7D2 /* JST_POS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_POS.h; sourceTree = "<group>"; };
+		CCF36BFF2845D8BC0039D7D2 /* JST_IMAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_IMAGE.h; sourceTree = "<group>"; };
+		CCF36C0A2845EEC40039D7D2 /* InspectorFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorFormat.swift; sourceTree = "<group>"; };
 		CCF679D2255AC6AC00061A51 /* libimobiledevice-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libimobiledevice-1.0.a"; sourceTree = "<group>"; };
 		CCF679DF255AC6CD00061A51 /* libusbmuxd-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libusbmuxd-2.0.a"; sourceTree = "<group>"; };
 		CCF679E0255AC6CD00061A51 /* libplist-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libplist-2.0.a"; sourceTree = "<group>"; };
@@ -1890,14 +1909,6 @@
 		D628357923F8EDEE0016573B /* lua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lua.hpp; sourceTree = "<group>"; };
 		D631E2C623F7B38B00652B17 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		D635BE9723CD84EB00FD62B8 /* SceneImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneImageView.swift; sourceTree = "<group>"; };
-		D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelColor.m; sourceTree = "<group>"; };
-		D635BE9C23CD861100FD62B8 /* JST_BOOL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_BOOL.h; sourceTree = "<group>"; };
-		D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelImage.h; sourceTree = "<group>"; };
-		D635BE9E23CD861100FD62B8 /* JST_COLOR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_COLOR.h; sourceTree = "<group>"; };
-		D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTPixelImage.m; sourceTree = "<group>"; };
-		D635BEA023CD861100FD62B8 /* JSTPixelColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTPixelColor.h; sourceTree = "<group>"; };
-		D635BEA123CD861100FD62B8 /* JST_POS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_POS.h; sourceTree = "<group>"; };
-		D635BEA223CD861100FD62B8 /* JST_IMAGE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JST_IMAGE.h; sourceTree = "<group>"; };
 		D635BEA823CD8C4F00FD62B8 /* PixelMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PixelMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelImage.swift; sourceTree = "<group>"; };
 		D635BEAE23CDA03700FD62B8 /* SceneClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneClipView.swift; sourceTree = "<group>"; };
@@ -2058,13 +2069,6 @@
 				0F5BBA0E276F3B3300AF0DC8 /* libpixel.a in Frameworks */,
 				CC9043922829776E00EDBEC6 /* Collections in Frameworks */,
 				CC9043902829776900EDBEC6 /* OrderedCollections in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C3B316EA80C447BCAEE20E5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2669,6 +2673,7 @@
 				CC8421612615F2DE00F1C007 /* Views */,
 				CC32E20C2615D5B700F5F6AA /* Inspector.storyboard */,
 				CC32E1FF2615D36B00F5F6AA /* InspectorController.swift */,
+				CCF36C0A2845EEC40039D7D2 /* InspectorFormat.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
@@ -3288,14 +3293,15 @@
 		D60B0F8824288CF20034F21C /* pixel */ = {
 			isa = PBXGroup;
 			children = (
-				D635BE9C23CD861100FD62B8 /* JST_BOOL.h */,
-				D635BEA123CD861100FD62B8 /* JST_POS.h */,
-				D635BE9E23CD861100FD62B8 /* JST_COLOR.h */,
-				D635BEA223CD861100FD62B8 /* JST_IMAGE.h */,
-				D635BEA023CD861100FD62B8 /* JSTPixelColor.h */,
-				D635BE9B23CD861100FD62B8 /* JSTPixelColor.m */,
-				D635BE9D23CD861100FD62B8 /* JSTPixelImage.h */,
-				D635BE9F23CD861100FD62B8 /* JSTPixelImage.m */,
+				CCF36BFA2845D8BB0039D7D2 /* JST_BOOL.h */,
+				CCF36BFB2845D8BB0039D7D2 /* JST_COLOR.h */,
+				CCF36BFF2845D8BC0039D7D2 /* JST_IMAGE.h */,
+				CCF36BFC2845D8BB0039D7D2 /* JST_ORIENTATION.h */,
+				CCF36BFE2845D8BB0039D7D2 /* JST_POS.h */,
+				CCF36BF62845D8BB0039D7D2 /* JSTPixelColor.h */,
+				CCF36BFD2845D8BB0039D7D2 /* JSTPixelColor.m */,
+				CCF36BF72845D8BB0039D7D2 /* JSTPixelImage.h */,
+				CCF36BF82845D8BB0039D7D2 /* JSTPixelImage.m */,
 			);
 			path = pixel;
 			sourceTree = "<group>";
@@ -3983,6 +3989,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCF36C042845D8BC0039D7D2 /* JST_BOOL.h in Headers */,
+				CCF36C052845D8BC0039D7D2 /* JST_COLOR.h in Headers */,
+				CCF36C062845D8BC0039D7D2 /* JST_ORIENTATION.h in Headers */,
+				CCF36C092845D8BC0039D7D2 /* JST_IMAGE.h in Headers */,
+				CCF36C002845D8BC0039D7D2 /* JSTPixelColor.h in Headers */,
+				CCF36C012845D8BC0039D7D2 /* JSTPixelImage.h in Headers */,
+				CCF36C082845D8BC0039D7D2 /* JST_POS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4305,7 +4318,6 @@
 				D628350923F8EAAA0016573B /* Sources */,
 				CCA72A73260B31DF00A934E2 /* Copy Lua Modules */,
 				CC98053D27F21363009044B7 /* Resources */,
-				4C3B316EA80C447BCAEE20E5 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -4905,8 +4917,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D60B0F9124288D000034F21C /* JSTPixelImage.m in Sources */,
-				D60B0F9024288D000034F21C /* JSTPixelColor.m in Sources */,
+				CCF36C072845D8BC0039D7D2 /* JSTPixelColor.m in Sources */,
+				CCF36C022845D8BC0039D7D2 /* JSTPixelImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4994,6 +5006,7 @@
 				CC07DF752809CE96001AF35C /* NSURLSession+Promise.swift in Sources */,
 				CC04276E275E212B008DD0C5 /* FileSystemNode.m in Sources */,
 				CCAF510927EC59FF002B11C6 /* DraggedTag.swift in Sources */,
+				CCF36C0B2845EEC40039D7D2 /* InspectorFormat.swift in Sources */,
 				CCF7C85427E4F2C60090B7F7 /* Field+CoreDataProperties.swift in Sources */,
 				CC3C4AE62620254000794806 /* TemplateInfoController.swift in Sources */,
 				CC470A1A262B1CAB0013A3B7 /* MutexLock.swift in Sources */,
@@ -5379,6 +5392,7 @@
 				D61FC4E823E18FE100299F48 /* SceneOverlayView.swift in Sources */,
 				D690C95A2419440300BB1652 /* PixelMatch.swift in Sources */,
 				CC3C4AE72620254000794806 /* TemplateInfoController.swift in Sources */,
+				CCF36C0C2845EEC40039D7D2 /* InspectorFormat.swift in Sources */,
 				CC85DACC27E56A80003263FD /* CoreData+Decodable.swift in Sources */,
 				D60A691023F2C89200ED9748 /* RulerView.swift in Sources */,
 				CC3F5BB4281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */,

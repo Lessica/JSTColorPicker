@@ -374,7 +374,7 @@ extension NSColor {
     var sharpCSS: String {
         var rgbColor: NSColor?
         let rgbaSpaces: [NSColorSpace] = [
-            .sRGB, .deviceRGB, .genericRGB, .adobeRGB1998, .extendedSRGB, .displayP3
+            .sRGB, .deviceRGB, .genericRGB, .adobeRGB1998, .displayP3
         ]
         if rgbaSpaces.contains(colorSpace) {
             rgbColor = self

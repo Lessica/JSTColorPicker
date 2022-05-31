@@ -50,7 +50,7 @@ final class SceneImageWrapper: NSView {
     
     func setMaskImage(_ image: JSTPixelImage?) {
         if let image = image {
-            maskImageView.setImage(image.toNSImage(), size: image.size)
+            maskImageView.setImage(image.toSystemImage(), size: image.size)
             maskImageView.isHidden = false
         }
         else {

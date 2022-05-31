@@ -10,6 +10,7 @@ import Cocoa
 
 @IBDesignable
 final class InspectorView: NSControl {
+    
     private let nibName = "InspectorView"
     private var contentView: NSView?
     
@@ -43,6 +44,19 @@ final class InspectorView: NSControl {
     @IBOutlet weak var heightStack      : NSStackView!
 
     private   weak var contentItem      : ContentItem?
+    internal  weak var screenshot       : Screenshot?
+    
+    internal var inspectorFormat        : InspectorFormat = .original
+    {
+        didSet {
+            if let contentItem = contentItem {
+                setItem(contentItem)
+            } else {
+                reset()
+            }
+        }
+    }
+    
     @IBInspectable var isHSBFormat      : Bool = false
     {
         didSet {
@@ -73,6 +87,7 @@ final class InspectorView: NSControl {
             view.bottomAnchor.constraint(equalTo: bottomAnchor),
             view.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
         contentView = view
     }
     
@@ -92,15 +107,43 @@ final class InspectorView: NSControl {
     }
     
     func setColor(_ color: PixelColor) {
+        guard let image = screenshot?.image else {
+            return
+        }
+        
         contentItem = color
-        colorView.color = color.toNSColor()
-        hexLabel.stringValue = String(color.cssString.dropFirst())
+        
+        let systemColor = color.toNSColor(with: image.colorSpace)
+        colorView.color = systemColor
+        
+        hexLabel.stringValue = String(systemColor.sharpCSS.dropFirst())
         xLabel.stringValue = String(color.coordinate.x)
         yLabel.stringValue = String(color.coordinate.y)
+        
+        let convertedColor: NSColor?
+        switch inspectorFormat {
+        case .original:
+            convertedColor = systemColor
+        case .displayP3:
+            convertedColor = systemColor.usingColorSpace(.displayP3)
+        case .sRGB:
+            convertedColor = systemColor.usingColorSpace(.sRGB)
+        case .adobeRGB1998:
+            convertedColor = systemColor.usingColorSpace(.adobeRGB1998)
+        }
+        
         if isHSBFormat {
-            hueLabel.stringValue = String(Int(color.hue))
-            saturationLabel.stringValue = String(Int(color.saturation * 100))
-            brightnessLabel.stringValue = String(Int(color.brightness * 100))
+            
+            if let convertedColor = convertedColor {
+                hueLabel.stringValue = String(Int(round(convertedColor.hueComponent * 360)))
+                saturationLabel.stringValue = String(Int(round(convertedColor.saturationComponent * 100)))
+                brightnessLabel.stringValue = String(Int(round(convertedColor.brightnessComponent * 100)))
+            } else {
+                hueLabel.stringValue = "-"
+                saturationLabel.stringValue = "-"
+                brightnessLabel.stringValue = "-"
+            }
+            
             redStack.isHidden = true
             greenStack.isHidden = true
             blueStack.isHidden = true
@@ -108,9 +151,17 @@ final class InspectorView: NSControl {
             saturationStack.isHidden = false
             brightnessStack.isHidden = false
         } else {
-            redLabel.stringValue = String(color.red)
-            greenLabel.stringValue = String(color.green)
-            blueLabel.stringValue = String(color.blue)
+            
+            if let convertedColor = convertedColor {
+                redLabel.stringValue = String(Int(round(convertedColor.redComponent * 0xFF)))
+                greenLabel.stringValue = String(Int(round(convertedColor.greenComponent * 0xFF)))
+                blueLabel.stringValue = String(Int(round(convertedColor.blueComponent * 0xFF)))
+            } else {
+                redLabel.stringValue = "-"
+                greenLabel.stringValue = "-"
+                blueLabel.stringValue = "-"
+            }
+            
             redStack.isHidden = false
             greenStack.isHidden = false
             blueStack.isHidden = false
@@ -118,7 +169,8 @@ final class InspectorView: NSControl {
             saturationStack.isHidden = true
             brightnessStack.isHidden = true
         }
-        alphaLabel.stringValue = String(Int(Double(color.alpha) / 0xFF * 100))
+        
+        alphaLabel.stringValue = String(Int(round(systemColor.alphaComponent * 100)))
         alphaStack.isHidden = false
         widthStack.isHidden = true
         heightStack.isHidden = true
@@ -174,6 +226,4 @@ final class InspectorView: NSControl {
         widthStack.isHidden = true
         heightStack.isHidden = true
     }
-
-    
 }

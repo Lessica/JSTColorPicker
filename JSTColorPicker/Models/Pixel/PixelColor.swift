@@ -105,8 +105,8 @@ final class PixelColor: ContentItem {
     public var cssString         : String { pixelColorRep.cssString          }
     public var cssRGBAString     : String { pixelColorRep.cssRGBAString      }
     
-    public func toNSColor() -> NSColor {
-        return pixelColorRep.toNSColor()
+    public func toNSColor(with colorSpace: NSColorSpace) -> NSColor {
+        return pixelColorRep.toSystemColor(with: colorSpace)
     }
     
     override func isEqual(_ object: Any?) -> Bool {

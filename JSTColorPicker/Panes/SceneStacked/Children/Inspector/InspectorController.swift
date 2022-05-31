@@ -14,12 +14,36 @@ final class InspectorController: StackedPaneController {
         case secondary
     }
 
+    @IBOutlet var inspectorMenu                          : NSMenu!
+    @IBOutlet weak var colorSpaceOriginalItem            : NSMenuItem!
+    @IBOutlet weak var colorSpaceDisplayP3Item           : NSMenuItem!
+    @IBOutlet weak var colorSpaceDisplayInsRGBItem       : NSMenuItem!
+    @IBOutlet weak var colorSpaceDisplayInAdobeRGBItem   : NSMenuItem!
+    @IBOutlet weak var toggleHSBMenuItem                 : NSMenuItem!
+    
+    private var inspectorFormat        : InspectorFormat = .original
+    {
+        didSet {
+            inspectorView.inspectorFormat = inspectorFormat
+        }
+    }
+    
+    private var isHSBFormat            : Bool = false
+    {
+        didSet {
+            inspectorView.isHSBFormat = isHSBFormat
+        }
+    }
+    
     @IBOutlet weak var inspectorView   : InspectorView!
     @IBOutlet weak var detailButton    : NSButton!
     override var menuIdentifier        : NSUserInterfaceItemIdentifier { NSUserInterfaceItemIdentifier("show-color-inspector") }
              var style                 : Style = .primary
 
-    private let observableKeys         : [UserDefaults.Key] = [.togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat]
+    private let observableKeys         : [UserDefaults.Key] = [
+        .togglePrimaryInspectorHSBFormat, .toggleSecondaryInspectorHSBFormat,
+        .togglePrimaryInspectorFormat, .toggleSecondaryInspectorFormat,
+    ]
     private var observables            : [Observable]?
     
     private var isRestorable           : Bool { style == .secondary }
@@ -38,12 +62,23 @@ final class InspectorController: StackedPaneController {
     }
 
     private func prepareDefaults() {
-        let configVal: Bool = style == .primary
+        let hsbVal: Bool = style == .primary
             ? UserDefaults.standard[.togglePrimaryInspectorHSBFormat]
             : UserDefaults.standard[.toggleSecondaryInspectorHSBFormat]
-        let configState: NSControl.StateValue = configVal ? .on : .off
-        detailButton.state = configState
-        inspectorView.isHSBFormat = configVal
+        
+        let hsbState: NSControl.StateValue = hsbVal ? .on : .off
+        detailButton.state = hsbState
+        
+        if let formatVal: String = style == .primary
+            ? UserDefaults.standard[.togglePrimaryInspectorFormat]
+            : UserDefaults.standard[.toggleSecondaryInspectorFormat]
+        {
+            inspectorFormat = InspectorFormat(rawValue: formatVal) ?? .original
+        } else {
+            inspectorFormat = .original
+        }
+        
+        isHSBFormat = hsbVal
     }
 
     private func applyDefaults(_ defaults: UserDefaults, _ defaultKey: UserDefaults.Key, _ defaultValue: Any) {
@@ -53,22 +88,30 @@ final class InspectorController: StackedPaneController {
             if detailButton.state != configState {
                 detailButton.state = configState
             }
-            if inspectorView.isHSBFormat != toValue {
-                inspectorView.isHSBFormat = toValue
+            if isHSBFormat != toValue {
+                isHSBFormat = toValue
+            }
+        }
+        else if (style == .primary && defaultKey == .togglePrimaryInspectorFormat) || (style == .secondary && defaultKey == .toggleSecondaryInspectorFormat), let toValue = defaultValue as? String, let toFormat = InspectorFormat(rawValue: toValue)
+        {
+            if (inspectorFormat != toFormat) {
+                inspectorFormat = toFormat
             }
         }
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        ensurePreviewedItem(lastStoredItem)
+        ensureLastStoredItem()
     }
 
     override var isPaneStacked: Bool { true }
 
     override func load(_ screenshot: Screenshot) throws {
         try super.load(screenshot)
+        
         lastStoredItem = nil
+        inspectorView.screenshot = screenshot
     }
 
     override func reloadPane() {
@@ -91,8 +134,8 @@ extension InspectorController: ItemInspector {
     }
 
     private func colorPanelSetColor(_ color: PixelColor) {
-        if colorPanel.isVisible {
-            let nsColor = color.toNSColor()
+        if colorPanel.isVisible, let image = screenshot?.image {
+            let nsColor = color.toNSColor(with: image.colorSpace)
             colorPanel.setTarget(nil)
             colorPanel.setAction(nil)
             colorPanel.color = nsColor
@@ -105,6 +148,10 @@ extension InspectorController: ItemInspector {
         colorPanel.color = sender.colorView.color
 
         colorPanel.makeKeyAndOrderFront(sender)
+    }
+    
+    private func ensureLastStoredItem() {
+        ensurePreviewedItem(lastStoredItem)
     }
     
     private func ensurePreviewedItem(_ item: ContentItem?) {
@@ -133,13 +180,110 @@ extension InspectorController: ItemInspector {
     }
 
     @IBAction private func detailButtonTapped(_ sender: NSButton) {
-        inspectorView.isHSBFormat = sender.state == .on
+        guard let event = view.window?.currentEvent else { return }
+        NSMenu.popUpContextMenu(inspectorMenu, with: event, for: sender)
+    }
+}
+
+extension InspectorController: NSMenuDelegate, NSMenuItemValidation {
+    
+    var defaultInspectorFormat: InspectorFormat {
+        if style == .primary {
+            if let inspectorFormatString: String = UserDefaults.standard[.togglePrimaryInspectorFormat] {
+                return InspectorFormat(rawValue: inspectorFormatString) ?? .original
+            } else {
+                return .original
+            }
+        } else {
+            if let inspectorFormatString: String = UserDefaults.standard[.toggleSecondaryInspectorFormat] {
+                return InspectorFormat(rawValue: inspectorFormatString) ?? .original
+            } else {
+                return .original
+            }
+        }
+    }
+    
+    func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        return true
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        if menu == self.inspectorMenu {
+            switch defaultInspectorFormat {
+            case .original:
+                colorSpaceOriginalItem.state = .on
+                colorSpaceDisplayP3Item.state = .off
+                colorSpaceDisplayInsRGBItem.state = .off
+                colorSpaceDisplayInAdobeRGBItem.state = .off
+            case .displayP3:
+                colorSpaceOriginalItem.state = .off
+                colorSpaceDisplayP3Item.state = .on
+                colorSpaceDisplayInsRGBItem.state = .off
+                colorSpaceDisplayInAdobeRGBItem.state = .off
+            case .sRGB:
+                colorSpaceOriginalItem.state = .off
+                colorSpaceDisplayP3Item.state = .off
+                colorSpaceDisplayInsRGBItem.state = .on
+                colorSpaceDisplayInAdobeRGBItem.state = .off
+            case .adobeRGB1998:
+                colorSpaceOriginalItem.state = .off
+                colorSpaceDisplayP3Item.state = .off
+                colorSpaceDisplayInsRGBItem.state = .off
+                colorSpaceDisplayInAdobeRGBItem.state = .on
+            }
+            
+            var hsbEnabled: Bool
+            if style == .primary {
+                hsbEnabled = UserDefaults.standard[.togglePrimaryInspectorHSBFormat]
+            } else {
+                hsbEnabled = UserDefaults.standard[.toggleSecondaryInspectorHSBFormat]
+            }
+            
+            toggleHSBMenuItem.state = hsbEnabled ? .on : .off
+        }
+    }
+    
+    @IBAction private func toggleInspectorFormat(_ sender: NSMenuItem) {
+        if sender == colorSpaceOriginalItem && defaultInspectorFormat != .original {
+            if style == .primary {
+                UserDefaults.standard[.togglePrimaryInspectorFormat] = InspectorFormat.original.rawValue
+            } else {
+                UserDefaults.standard[.toggleSecondaryInspectorFormat] = InspectorFormat.original.rawValue
+            }
+        }
+        else if sender == colorSpaceDisplayP3Item && defaultInspectorFormat != .displayP3 {
+            if style == .primary {
+                UserDefaults.standard[.togglePrimaryInspectorFormat] = InspectorFormat.displayP3.rawValue
+            } else {
+                UserDefaults.standard[.toggleSecondaryInspectorFormat] = InspectorFormat.displayP3.rawValue
+            }
+        }
+        else if sender == colorSpaceDisplayInsRGBItem && defaultInspectorFormat != .sRGB {
+            if style == .primary {
+                UserDefaults.standard[.togglePrimaryInspectorFormat] = InspectorFormat.sRGB.rawValue
+            } else {
+                UserDefaults.standard[.toggleSecondaryInspectorFormat] = InspectorFormat.sRGB.rawValue
+            }
+        }
+        else if sender == colorSpaceDisplayInAdobeRGBItem && defaultInspectorFormat != .adobeRGB1998 {
+            if style == .primary {
+                UserDefaults.standard[.togglePrimaryInspectorFormat] = InspectorFormat.adobeRGB1998.rawValue
+            } else {
+                UserDefaults.standard[.toggleSecondaryInspectorFormat] = InspectorFormat.adobeRGB1998.rawValue
+            }
+        }
+    }
+    
+    @IBAction private func toggleInspectorHSBFormat(_ sender: NSMenuItem) {
+        sender.state = sender.state == .on ? .off : .on
+        isHSBFormat = sender.state == .on
         if style == .primary {
             UserDefaults.standard[.togglePrimaryInspectorHSBFormat] = sender.state == .on
         } else {
             UserDefaults.standard[.toggleSecondaryInspectorHSBFormat] = sender.state == .on
         }
     }
+    
 }
 
 extension InspectorController {

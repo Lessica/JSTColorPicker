@@ -88,14 +88,14 @@ final class EditCoordinateController: EditViewController {
     }
     
     private func updateDisplay(_ sender: Any?, with item: ContentItem?, isRegistered registered: Bool = false) {
-        guard let pixelColor = item as? PixelColor else { return }
+        guard let image = image, let pixelColor = item as? PixelColor else { return }
         
         let coord = pixelColor.coordinate
         textFieldOriginX.stringValue   = String(coord.x)
         textFieldOriginY.stringValue   = String(coord.y)
         textFieldColor  .stringValue   = "\u{25CF} \(pixelColor.cssString)"
         
-        let nsColor = pixelColor.toNSColor()
+        let nsColor = pixelColor.toNSColor(with: image.colorSpace)
         textFieldColor.textColor       = nsColor
         textFieldColor.backgroundColor = (nsColor.isLightColor ?? false) ? .black : .white
         

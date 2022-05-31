@@ -86,6 +86,10 @@ final class PixelImage {
     
     public var bounds: PixelRect { PixelRect(origin: .zero, size: size) }
     
+    public var colorSpace: NSColorSpace { NSColorSpace(cgColorSpace: pixelImageRepresentation.colorSpace)! }
+    
+    public var cgColorSpace: CGColorSpace { pixelImageRepresentation.colorSpace }
+    
     public func rawColor(at coordinate: PixelCoordinate) -> JSTPixelColor? {
         guard bounds.contains(coordinate) else { return nil }
         return pixelImageRepresentation.getJSTColor(of: coordinate.toCGPoint())
@@ -111,12 +115,12 @@ final class PixelImage {
     }
     
     public func toNSImage() -> NSImage {
-        return pixelImageRepresentation.toNSImage()
+        return pixelImageRepresentation.toSystemImage()
     }
     
     public func toNSImage(of area: PixelArea) -> NSImage? {
         guard bounds.contains(area.rect) else { return nil }
-        return pixelImageRepresentation.crop(area.rect.toCGRect()).toNSImage()
+        return pixelImageRepresentation.crop(area.rect.toCGRect()).toSystemImage()
     }
     
     public func downsample(to pointSize: CGSize, scale: CGFloat) -> NSImage {

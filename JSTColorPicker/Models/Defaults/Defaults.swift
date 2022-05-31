@@ -30,6 +30,8 @@ extension UserDefaults.Key {
     static let toggleTemplateDetailedInformation    : UserDefaults.Key     = "defaults:toggleTemplateDetailedInformation"      // Bool
     static let togglePrimaryInspectorHSBFormat      : UserDefaults.Key     = "defaults:togglePrimaryInspectorHSBFormat"        // Bool
     static let toggleSecondaryInspectorHSBFormat    : UserDefaults.Key     = "defaults:toggleSecondaryInspectorHSBFormat"      // Bool
+    static let togglePrimaryInspectorFormat         : UserDefaults.Key     = "defaults:togglePrimaryInspectorFormat"           // String
+    static let toggleSecondaryInspectorFormat       : UserDefaults.Key     = "defaults:toggleSecondaryInspectorFormat"         // String
     static let usesAlternativeAreaRepresentation    : UserDefaults.Key     = "defaults:usesAlternativeAreaRepresentation"      // Bool
     
     static let drawSceneBackground                  : UserDefaults.Key     = "defaults:drawSceneBackground"                    // Bool

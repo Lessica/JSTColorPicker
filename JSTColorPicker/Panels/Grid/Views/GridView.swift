@@ -274,7 +274,10 @@ final class GridView: NSView {
         
         let drawColorPresets = self.colorPresets ?? [:]
         let drawClosure = { (state: State, coord: PixelCoordinate, rect: CGRect) -> Void in
-            let color: CGColor = pixelImage.rawColor(at: coord)?.toNSColor().cgColor ?? .clear
+            let color: CGColor = pixelImage
+                .rawColor(at: coord)?
+                .toSystemColor(with: pixelImage.colorSpace)
+                .cgColor ?? .clear
             ctx.setStrokeColor(state.color(with: drawColorPresets).cgColor)
             ctx.setFillColor(color)
             ctx.addRect(rect)

@@ -1399,7 +1399,7 @@ extension TagListController: NSTouchBarDelegate {
             colorPickerItem = NSColorPickerTouchBarItem.colorPicker(withIdentifier: identifier)
             colorPickerItem.showsAlpha = false
             colorPickerItem.color = colorPanel.color
-            colorPickerItem.allowedColorSpaces = [.sRGB]
+            colorPickerItem.allowedColorSpaces = [.sRGB, .displayP3, .adobeRGB1998, .genericRGB]
         default:
             return nil
         }

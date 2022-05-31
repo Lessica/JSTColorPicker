@@ -10,20 +10,20 @@
         <scene sceneID="cOc-d9-fGo">
             <objects>
                 <viewController id="yz7-Ej-uK5" customClass="InspectorController" customModule="JSTColorPicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
-                        <rect key="frame" x="0.0" y="0.0" width="192" height="107"/>
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="3pQ-Yc-ruh">
+                        <rect key="frame" x="0.0" y="0.0" width="192" height="149"/>
                         <subviews>
                             <box borderType="line" title="Inspector" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-KU-rgc" customClass="ClearBox" customModule="JSTColorPicker" customModuleProvider="target">
-                                <rect key="frame" x="-3" y="-4" width="198" height="108"/>
+                                <rect key="frame" x="-3" y="-4" width="198" height="149"/>
                                 <view key="contentView" id="BDQ-F6-YF7">
-                                    <rect key="frame" x="11" y="3" width="176" height="90"/>
+                                    <rect key="frame" x="11" y="3" width="176" height="131"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Fjf-by-V7h" customClass="InspectorView" customModule="JSTColorPicker" customModuleProvider="target">
-                                            <rect key="frame" x="6" y="8" width="164" height="74"/>
+                                            <rect key="frame" x="6" y="8" width="164" height="115"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="164" placeholder="YES" id="9xA-68-df9"/>
-                                                <constraint firstAttribute="height" constant="74" placeholder="YES" id="OKf-dj-P8Y"/>
+                                                <constraint firstAttribute="height" constant="115" placeholder="YES" id="OKf-dj-P8Y"/>
                                             </constraints>
                                             <connections>
                                                 <action selector="colorIndicatorTapped:" target="yz7-Ej-uK5" id="7aq-Ep-GsR"/>
@@ -39,17 +39,18 @@
                                 <size key="contentViewMargins" width="8" height="0.0"/>
                             </box>
                             <button toolTip="Toggle between RGB and HSV colors." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-uj-N05">
-                                <rect key="frame" x="168" y="87.5" width="16" height="21"/>
+                                <rect key="frame" x="168" y="128.5" width="16" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="7sB-fc-DlQ"/>
                                     <constraint firstAttribute="height" constant="16" id="XJD-h0-sqz"/>
                                 </constraints>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="number.square" catalog="system" imagePosition="only" alignment="center" alternateImage="number.square.fill" imageScaling="proportionallyDown" inset="2" id="Njf-LB-2ju">
-                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                    <behavior key="behavior" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="detailButtonTapped:" target="yz7-Ej-uK5" id="Cty-qc-9sb"/>
+                                    <outlet property="menu" destination="4Io-fa-YUX" id="Lfk-yQ-nUl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -64,12 +65,56 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="colorSpaceDisplayInAdobeRGBItem" destination="KZd-1K-Wt6" id="47l-JQ-5bs"/>
+                        <outlet property="colorSpaceDisplayInsRGBItem" destination="bdr-zJ-ogD" id="lfq-bs-Mm3"/>
+                        <outlet property="colorSpaceDisplayP3Item" destination="nkW-0q-ehN" id="gas-N6-6sb"/>
+                        <outlet property="colorSpaceOriginalItem" destination="1FW-tY-Hqw" id="cVw-ay-q3q"/>
                         <outlet property="detailButton" destination="gG4-uj-N05" id="iAf-BO-h5M"/>
+                        <outlet property="inspectorMenu" destination="4Io-fa-YUX" id="HSj-WH-NH6"/>
                         <outlet property="inspectorView" destination="Fjf-by-V7h" id="sUh-Ng-Lgv"/>
                         <outlet property="paneBox" destination="dsS-KU-rgc" id="5RD-iw-Egf"/>
+                        <outlet property="toggleHSBMenuItem" destination="JQe-jC-d21" id="plc-ND-fyA"/>
                     </connections>
                 </viewController>
                 <customObject id="c0d-Mv-Lbi" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="4Io-fa-YUX">
+                    <items>
+                        <menuItem title="Original" state="on" id="1FW-tY-Hqw">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleInspectorFormat:" target="yz7-Ej-uK5" id="3wy-7a-Zbo"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Display P3" id="nkW-0q-ehN">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleInspectorFormat:" target="yz7-Ej-uK5" id="Jya-sB-drO"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Display in sRGB" id="bdr-zJ-ogD">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleInspectorFormat:" target="yz7-Ej-uK5" id="oyg-Bd-M1L"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Display in Adobe RGB" id="KZd-1K-Wt6">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleInspectorFormat:" target="yz7-Ej-uK5" id="B5K-Nh-ipG"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="aFG-WB-T3N"/>
+                        <menuItem title="Toggle RGB/HSB" id="JQe-jC-d21">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="toggleInspectorHSBFormat:" target="yz7-Ej-uK5" id="PkG-n9-SaO"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                    <connections>
+                        <outlet property="delegate" destination="yz7-Ej-uK5" id="b64-cJ-KZz"/>
+                    </connections>
+                </menu>
             </objects>
             <point key="canvasLocation" x="-374" y="102"/>
         </scene>

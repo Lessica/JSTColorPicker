@@ -17,9 +17,9 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeInt:(int)self.red   forKey:@"red"];
+    [coder encodeInt:(int)self.red forKey:@"red"];
     [coder encodeInt:(int)self.green forKey:@"green"];
-    [coder encodeInt:(int)self.blue  forKey:@"blue"];
+    [coder encodeInt:(int)self.blue forKey:@"blue"];
     [coder encodeInt:(int)self.alpha forKey:@"alpha"];
 }
 
@@ -195,58 +195,88 @@
     _alpha = alpha;
 }
 
-- (JSTPixelColor *)initWithNSColor:(NSColor *)nscolor
+- (JSTPixelColor *)initWithSystemColor:(SystemColor *)systemColor
 {
     self = [self init];
     if (self) {
-        [self setColorWithNSColor:nscolor];
+        [self setColorWithSystemColor:systemColor];
     }
     return self;
 }
 
-+ (JSTPixelColor *)colorWithNSColor:(NSColor *)nscolor
++ (JSTPixelColor *)colorWithSystemColor:(SystemColor *)systemColor
 {
-    return [[JSTPixelColor alloc] initWithNSColor:nscolor];
-}
-
-- (NSColor *)toNSColor
-{
-    return [NSColor colorWithSRGBRed:((CGFloat)_red)/255.0f green:((CGFloat)_green)/255.0f blue:((CGFloat)_blue)/255.0f alpha:((CGFloat)_alpha)/255.0f];
-}
-
-- (void)setColorWithNSColor:(NSColor *)nscolor
-{
-    @autoreleasepool {
-        NSDictionary *colorDic = [self getSRGBDictionaryByNSColor:nscolor];
-        _red = (uint8_t)([colorDic[@"R"] floatValue] * 255);
-        _green = (uint8_t)([colorDic[@"G"] floatValue] * 255);
-        _blue = (uint8_t)([colorDic[@"B"] floatValue] * 255);
-        _alpha = (uint8_t)([colorDic[@"A"] floatValue] * 255);
-    }
-}
-
-- (NSDictionary *)getSRGBDictionaryByNSColor:(NSColor *)originColor
-{
-    NSColor *convertedColor = [originColor colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
-    CGFloat r = 0, g = 0, b = 0, a = 0;
-    if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
-        [convertedColor getRed:&r green:&g blue:&b alpha:&a];
-    }
-    else {
-        const CGFloat *components = CGColorGetComponents(convertedColor.CGColor);
-        r = components[0];
-        g = components[1];
-        b = components[2];
-        a = components[3];
-    }
-    return @{@"R":@(r),
-             @"G":@(g),
-             @"B":@(b),
-             @"A":@(a)};
+    return [[JSTPixelColor alloc] initWithSystemColor:systemColor];
 }
 
 - (NSString *)description {
     return self.cssString;
+}
+
+- (SystemColor *)toSystemColorWithColorSpace:(NSColorSpace *)colorSpace
+{
+    NSAssert(colorSpace.colorSpaceModel == NSColorSpaceModelRGB || colorSpace.colorSpaceModel == NSColorSpaceModelGray,
+             @"unsupported color model");
+    if (colorSpace.colorSpaceModel == NSColorSpaceModelRGB) {
+        CGFloat components[4];
+        components[0] = (CGFloat)_red / 255.f;
+        components[1] = (CGFloat)_green / 255.f;
+        components[2] = (CGFloat)_blue / 255.f;
+        components[3] = (CGFloat)_alpha / 255.f;
+        return [SystemColor colorWithColorSpace:colorSpace components:components count:4];
+    } else {
+        CGFloat _gray = 0.299 * (CGFloat)_red / 255.f + 0.587 * (CGFloat)_green / 255.f + 0.114 * (CGFloat)_blue / 255.f;
+        CGFloat components[2];
+        components[0] = (CGFloat)_gray / 255.f;
+        components[1] = (CGFloat)_alpha / 255.f;
+        return [SystemColor colorWithColorSpace:colorSpace components:components count:2];
+    }
+}
+
+- (void)setColorWithSystemColor:(SystemColor *)systemColor
+{
+    NSDictionary *colorDic = [self getRGBDictionaryFromSystemColor:systemColor];
+    _red = (uint8_t)([colorDic[@"R"] floatValue] * 255);
+    _green = (uint8_t)([colorDic[@"G"] floatValue] * 255);
+    _blue = (uint8_t)([colorDic[@"B"] floatValue] * 255);
+    _alpha = (uint8_t)([colorDic[@"A"] floatValue] * 255);
+}
+
+- (NSDictionary *)getRGBDictionaryFromSystemColor:(SystemColor *)systemColor
+{
+    NSAssert(systemColor.colorSpace.colorSpaceModel == NSColorSpaceModelRGB || systemColor.colorSpace.colorSpaceModel == NSColorSpaceModelGray,
+             @"unsupported color model");
+    CGFloat r = 0, g = 0, b = 0, a = 0, w = 0;
+    if (systemColor.numberOfComponents == 4) {
+        if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
+            [systemColor getRed:&r green:&g blue:&b alpha:&a];
+        } else {
+            const CGFloat *components = CGColorGetComponents(systemColor.CGColor);
+            r = components[0];
+            g = components[1];
+            b = components[2];
+            a = components[3];
+        }
+    } else if (systemColor.numberOfComponents == 2) {
+        if ([self respondsToSelector:@selector(getWhite:alpha:)]) {
+            [systemColor getWhite:&w alpha:&a];
+            r = w;
+            g = w;
+            b = w;
+        } else {
+            const CGFloat *components = CGColorGetComponents(systemColor.CGColor);
+            r = components[0];
+            g = components[0];
+            b = components[0];
+            a = components[1];
+        }
+    }
+    return @{
+        @"R":@(r),
+        @"G":@(g),
+        @"B":@(b),
+        @"A":@(a),
+    };
 }
 
 @end

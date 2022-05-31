@@ -1404,10 +1404,11 @@ extension ContentController: NSMenuItemValidation, NSMenuDelegate {
         to url: URL,
         byLocatingAfterOperation locate: Bool
     ) {
-        guard let coloredData = NSImage(
-                color: color.toNSColor(),
-                size: CGSize(width: 74.0, height: 74.0)
-        ).pngData
+        guard let image = screenshot?.image,
+              let coloredData = NSImage(
+                color: color.toNSColor(with: image.colorSpace),
+                  size: CGSize(width: 74.0, height: 74.0)
+              ).pngData
         else { return }
         do {
             try coloredData.write(to: url)
@@ -1688,9 +1689,14 @@ extension ContentController: NSTableViewDelegate, NSTableViewDataSource {
                     cell.toolTip = NSLocalizedString("No tag attached", comment: "Tool Tip: Tag Cell View")
                 }
             }
-            else if col == .columnDescription {
+            else if col == .columnDescription, let image = screenshot?.image {
                 if let color = item as? PixelColor {
-                    cell.image = NSImage(color: color.pixelColorRep.toNSColor(), size: NSSize(width: 14, height: 14))
+                    cell.image = NSImage(
+                        color: color
+                            .pixelColorRep
+                            .toSystemColor(with: image.colorSpace),
+                        size: NSSize(width: 14, height: 14)
+                    )
                     cell.toolTip = usesDetailedToolTips ? String(format: NSLocalizedString("TOOLTIP_DESC_PIXEL_COLOR", comment: "Tool Tip: Description of Pixel Color"), color.coordinate.description, color.cssString, color.cssRGBAString) : nil
                 } else if let area = item as? PixelArea {
                     cell.image = NSImage(systemSymbolName: "crop", accessibilityDescription: "columnDescription")

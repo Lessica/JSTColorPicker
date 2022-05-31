@@ -1,5 +1,20 @@
+/* Class = "NSMenuItem"; title = "Original"; ObjectID = "1FW-tY-Hqw"; */
+"1FW-tY-Hqw.title" = "显示原生值";
+
+/* Class = "NSMenuItem"; title = "Display in sRGB"; ObjectID = "bdr-zJ-ogD"; */
+"bdr-zJ-ogD.title" = "以 sRGB 显示";
+
 /* Class = "NSBox"; title = "Inspector"; ObjectID = "dsS-KU-rgc"; */
 "dsS-KU-rgc.title" = "检视器";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Toggle between RGB and HSV colors."; ObjectID = "gG4-uj-N05"; */
 "gG4-uj-N05.ibShadowedToolTip" = "在 RGB 颜色与 HSV 颜色间切换。";
+
+/* Class = "NSMenuItem"; title = "Toggle RGB/HSB"; ObjectID = "JQe-jC-d21"; */
+"JQe-jC-d21.title" = "切换 RGB/HSB";
+
+/* Class = "NSMenuItem"; title = "Display in Adobe RGB"; ObjectID = "KZd-1K-Wt6"; */
+"KZd-1K-Wt6.title" = "以 Adobe RGB 显示";
+
+/* Class = "NSMenuItem"; title = "Display P3"; ObjectID = "nkW-0q-ehN"; */
+"nkW-0q-ehN.title" = "以 Display P3 显示";
