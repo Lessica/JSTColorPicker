@@ -16,7 +16,7 @@ FOUNDATION_EXTERN void get_color_in_pixels_image_safe(JST_IMAGE *pixels_image, i
 FOUNDATION_EXTERN void set_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point);
 
 @interface JSTPixelImage (Private)
-- (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface;
+- (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface colorSpace:(CGColorSpaceRef)colorSpace;
 @end
 
 NS_ASSUME_NONNULL_END

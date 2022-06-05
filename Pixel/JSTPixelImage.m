@@ -551,7 +551,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
     return self;
 }
 
-- (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface {
+- (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface colorSpace:(CGColorSpaceRef)colorSpace {
     self = [super init];
     if (self) {
         OSType pixelFormat = IOSurfaceGetPixelFormat(surface);
@@ -570,7 +570,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
         _pixelImage->pixels = IOSurfaceGetBaseAddress(surface);
         
         _pixelImage->is_destroyed = true;
-        _colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+        _colorSpace = CGColorSpaceRetain(colorSpace);
     }
     return self;
 }
