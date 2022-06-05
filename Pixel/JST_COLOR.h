@@ -5,14 +5,19 @@
 
 typedef union JST_COLOR JST_COLOR;
 
+#define JST_COLOR_COMPONENT_TYPE uint8_t
+#define JST_COLOR_TYPE uint32_t
+#define JST_COLOR_COMPONENTS_PER_ELEMENT 4
+#define JST_COLOR_COMPONENT_MAX_VALUE 0xFF
+
 /* Color Struct */
 union JST_COLOR {
-    uint32_t the_color; /* the_color is name of color value */
+    JST_COLOR_TYPE the_color; /* the_color is name of color value */
     struct { /* RGB struct */
-        uint8_t blue;
-        uint8_t green;
-        uint8_t red;
-        uint8_t alpha;
+        JST_COLOR_COMPONENT_TYPE blue;
+        JST_COLOR_COMPONENT_TYPE green;
+        JST_COLOR_COMPONENT_TYPE red;
+        JST_COLOR_COMPONENT_TYPE alpha;
     };
 };
 

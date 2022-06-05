@@ -17,8 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class JSTPixelColor;
 
-typedef struct JST_IMAGE JST_IMAGE;
-@interface JSTPixelImage : NSObject {
+@interface JSTPixelImage : NSObject <NSCopying> {
     JST_IMAGE *_pixelImage;
 }
 
@@ -39,8 +38,8 @@ typedef struct JST_IMAGE JST_IMAGE;
 - (JSTPixelColor *)getJSTColorOfPoint:(CGPoint)point;
 - (void)setJSTColor:(JSTPixelColor *)color ofPoint:(CGPoint)point;
 
-- (uint32_t)getColorOfPoint:(CGPoint)point;
-- (void)setColor:(uint32_t)color ofPoint:(CGPoint)point;
+- (JST_COLOR_TYPE)getColorOfPoint:(CGPoint)point;
+- (void)setColor:(JST_COLOR_TYPE)color ofPoint:(CGPoint)point;
 
 - (NSData *)pngRepresentation;
 #if TARGET_OS_IPHONE

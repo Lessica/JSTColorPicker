@@ -4,44 +4,52 @@
 #import <UIKit/UIKit.h>
 
 #define SystemColor UIColor
+#define SystemColorSpace CGColorSpaceRef
 #else
 #import <AppKit/AppKit.h>
 
 #define SystemColor NSColor
+#define SystemColorSpace NSColorSpace *
 #endif
+
+#import "JST_COLOR.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
+/** JSTPixelColor is the pixel color representation of the JSTPixelImage,
+ * which represents any RGB or grayscale color with alpha channel.
+ * It does not belong to any color space.
+ */
 @interface JSTPixelColor : NSObject <NSSecureCoding, NSCopying> {
-    uint8_t _red;
-    uint8_t _green;
-    uint8_t _blue;
-    uint8_t _alpha;
+    JST_COLOR_COMPONENT_TYPE _red;
+    JST_COLOR_COMPONENT_TYPE _green;
+    JST_COLOR_COMPONENT_TYPE _blue;
+    JST_COLOR_COMPONENT_TYPE _alpha;
 }
 
-@property (assign, readonly) uint8_t red;
-@property (assign, readonly) uint8_t green;
-@property (assign, readonly) uint8_t blue;
-@property (assign, readonly) uint8_t alpha;
-@property (assign, readonly) uint32_t rgbValue;
-@property (assign, readonly) uint32_t rgbaValue;
+@property (assign, readonly) JST_COLOR_COMPONENT_TYPE red;
+@property (assign, readonly) JST_COLOR_COMPONENT_TYPE green;
+@property (assign, readonly) JST_COLOR_COMPONENT_TYPE blue;
+@property (assign, readonly) JST_COLOR_COMPONENT_TYPE alpha;
+@property (assign, readonly) JST_COLOR_TYPE rgbValue;
+@property (assign, readonly) JST_COLOR_TYPE rgbaValue;
 
 @property (copy, readonly) NSString *hexString;
 @property (copy, readonly) NSString *hexStringWithAlpha;
 @property (copy, readonly) NSString *cssString;
 @property (copy, readonly) NSString *cssRGBAString;
++ (JSTPixelColor *)colorWithColorHex:(NSString *)hex;
 
 /* Color Space Independent */
-+ (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha;
-+ (JSTPixelColor *)colorWithColorHex:(NSString *)hex;
++ (JSTPixelColor *)colorWithRed:(JST_COLOR_COMPONENT_TYPE)red green:(JST_COLOR_COMPONENT_TYPE)green blue:(JST_COLOR_COMPONENT_TYPE)blue alpha:(JST_COLOR_COMPONENT_TYPE)alpha;
 + (JSTPixelColor *)colorWithJSTColor:(JSTPixelColor *)jstcolor;
-- (void)setRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha;
+- (void)setRed:(JST_COLOR_COMPONENT_TYPE)red green:(JST_COLOR_COMPONENT_TYPE)green blue:(JST_COLOR_COMPONENT_TYPE)blue alpha:(JST_COLOR_COMPONENT_TYPE)alpha;
 
 /* Color Space Related */
 + (JSTPixelColor *)colorWithSystemColor:(SystemColor *)systemColor;
 - (void)setColorWithSystemColor:(SystemColor *)systemColor;
-- (SystemColor *)toSystemColorWithColorSpace:(NSColorSpace *)colorSpace;
+- (SystemColor *)toSystemColorWithColorSpace:(SystemColorSpace)colorSpace;
 
 @end
 

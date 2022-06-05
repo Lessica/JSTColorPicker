@@ -6,6 +6,8 @@
 #import "JST_COLOR.h"
 #import "JST_ORIENTATION.h"
 
+typedef struct JST_IMAGE JST_IMAGE;
+
 struct JST_IMAGE {
     JST_ORIENTATION orientation;
     int width;

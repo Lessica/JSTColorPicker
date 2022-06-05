@@ -473,6 +473,7 @@
 		CC98053927F211FD009044B7 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = CCA72A1A260B290600A934E2 /* fpconv.c */; };
 		CC98053A27F2120F009044B7 /* fpconv.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA72A27260B291800A934E2 /* fpconv.h */; };
 		CC98053E27F21367009044B7 /* Modules.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC9804AA27F20833009044B7 /* Modules.bundle */; };
+		CC985AB5284CBDD800C9B80B /* JSTPixelImage+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = CC985AB4284CBDD800C9B80B /* JSTPixelImage+Private.h */; };
 		CC9BFAF62635A274008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFAFE2635A276008C1850 /* MultipleErrorAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */; };
 		CC9BFB062635A28D008C1850 /* MultipleErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */; };
@@ -1674,6 +1675,7 @@
 		CC9804F227F21011009044B7 /* lcurl.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lcurl.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC98052327F210E7009044B7 /* lfs.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lfs.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC98053227F21124009044B7 /* pb.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = pb.so; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC985AB4284CBDD800C9B80B /* JSTPixelImage+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSTPixelImage+Private.h"; path = "Pixel/JSTPixelImage+Private.h"; sourceTree = SOURCE_ROOT; };
 		CC9BFAED2635A24C008C1850 /* MultipleErrorAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleErrorAlertView.xib; sourceTree = "<group>"; };
 		CC9BFAEE2635A24C008C1850 /* MultipleErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleErrorAlertView.swift; sourceTree = "<group>"; };
 		CCA72A16260B290600A934E2 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -3301,6 +3303,7 @@
 				CCF36BF62845D8BB0039D7D2 /* JSTPixelColor.h */,
 				CCF36BFD2845D8BB0039D7D2 /* JSTPixelColor.m */,
 				CCF36BF72845D8BB0039D7D2 /* JSTPixelImage.h */,
+				CC985AB4284CBDD800C9B80B /* JSTPixelImage+Private.h */,
 				CCF36BF82845D8BB0039D7D2 /* JSTPixelImage.m */,
 			);
 			path = pixel;
@@ -3990,6 +3993,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCF36C042845D8BC0039D7D2 /* JST_BOOL.h in Headers */,
+				CC985AB5284CBDD800C9B80B /* JSTPixelImage+Private.h in Headers */,
 				CCF36C052845D8BC0039D7D2 /* JST_COLOR.h in Headers */,
 				CCF36C062845D8BC0039D7D2 /* JST_ORIENTATION.h in Headers */,
 				CCF36C092845D8BC0039D7D2 /* JST_IMAGE.h in Headers */,
@@ -6608,7 +6612,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1254;
+				CURRENT_PROJECT_VERSION = 1256;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6650,7 +6654,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1254;
+				CURRENT_PROJECT_VERSION = 1256;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7048,7 +7052,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1254;
+				CURRENT_PROJECT_VERSION = 1256;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -7087,7 +7091,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1254;
+				CURRENT_PROJECT_VERSION = 1256;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (

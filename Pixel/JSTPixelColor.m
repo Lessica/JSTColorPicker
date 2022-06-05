@@ -1,5 +1,4 @@
 #import "JSTPixelColor.h"
-#import "JST_COLOR.h"
 
 
 @implementation JSTPixelColor
@@ -9,10 +8,10 @@
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    uint8_t red   = (uint8_t)[coder decodeIntForKey:@"red"];
-    uint8_t green = (uint8_t)[coder decodeIntForKey:@"green"];
-    uint8_t blue  = (uint8_t)[coder decodeIntForKey:@"blue"];
-    uint8_t alpha = (uint8_t)[coder decodeIntForKey:@"alpha"];
+    JST_COLOR_COMPONENT_TYPE red   = (JST_COLOR_COMPONENT_TYPE)[coder decodeIntForKey:@"red"];
+    JST_COLOR_COMPONENT_TYPE green = (JST_COLOR_COMPONENT_TYPE)[coder decodeIntForKey:@"green"];
+    JST_COLOR_COMPONENT_TYPE blue  = (JST_COLOR_COMPONENT_TYPE)[coder decodeIntForKey:@"blue"];
+    JST_COLOR_COMPONENT_TYPE alpha = (JST_COLOR_COMPONENT_TYPE)[coder decodeIntForKey:@"alpha"];
     return [self initWithRed:red green:green blue:blue alpha:alpha];
 }
 
@@ -27,7 +26,10 @@
     return [[JSTPixelColor alloc] initWithJSTColor:self];
 }
 
-+ (JSTPixelColor *)colorWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
++ (JSTPixelColor *)colorWithRed:(JST_COLOR_COMPONENT_TYPE)red
+                          green:(JST_COLOR_COMPONENT_TYPE)green
+                           blue:(JST_COLOR_COMPONENT_TYPE)blue
+                          alpha:(JST_COLOR_COMPONENT_TYPE)alpha
 {
     return [[JSTPixelColor alloc] initWithRed:red green:green blue:blue alpha:alpha];
 }
@@ -42,7 +44,7 @@
     return [[JSTPixelColor alloc] initWithJSTColor:jstcolor];
 }
 
-- (uint32_t)rgbaValue
+- (JST_COLOR_TYPE)rgbaValue
 {
     JST_COLOR color;
     color.red = _red;
@@ -52,7 +54,7 @@
     return color.the_color;
 }
 
-- (uint32_t)rgbValue
+- (JST_COLOR_TYPE)rgbValue
 {
     JST_COLOR color;
     color.red = _red;
@@ -108,7 +110,7 @@
     return self;
 }
 
-- (JSTPixelColor *)initWithRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
+- (JSTPixelColor *)initWithRed:(JST_COLOR_COMPONENT_TYPE)red green:(JST_COLOR_COMPONENT_TYPE)green blue:(JST_COLOR_COMPONENT_TYPE)blue alpha:(JST_COLOR_COMPONENT_TYPE)alpha
 {
     self = [self init];
     [self setRed:red green:green blue:blue alpha:alpha];
@@ -136,10 +138,10 @@
     NSScanner *scanner = [NSScanner scannerWithString:hex];
     unsigned int rgbaValue = 0;
     [scanner scanHexInt:&rgbaValue];
-    return [self initWithRed:(uint8_t) (((rgbaValue & 0xFF000000) >> 24) / 255.f)
-                       green:(uint8_t) (((rgbaValue & 0xFF0000) >> 16) / 255.f)
-                        blue:(uint8_t) (((rgbaValue & 0xFF00) >> 8) / 255.f)
-                       alpha:(uint8_t) (((rgbaValue & 0xFF)) / 255.f)];
+    return [self initWithRed:(JST_COLOR_COMPONENT_TYPE)(((rgbaValue & 0xFF000000) >> 24) / 255.f)
+                       green:(JST_COLOR_COMPONENT_TYPE)(((rgbaValue & 0xFF0000) >> 16) / 255.f)
+                        blue:(JST_COLOR_COMPONENT_TYPE)(((rgbaValue & 0xFF00) >> 8) / 255.f)
+                       alpha:(JST_COLOR_COMPONENT_TYPE)(((rgbaValue & 0xFF)) / 255.f)];
 }
 
 - (JSTPixelColor *)initWithJSTColor:(JSTPixelColor *)jstcolor
@@ -147,7 +149,7 @@
     return [self initWithRed:jstcolor.red green:jstcolor.green blue:jstcolor.blue alpha:jstcolor.alpha];
 }
 
-- (void)setRed:(uint8_t)red green:(uint8_t)green blue:(uint8_t)blue alpha:(uint8_t)alpha
+- (void)setRed:(JST_COLOR_COMPONENT_TYPE)red green:(JST_COLOR_COMPONENT_TYPE)green blue:(JST_COLOR_COMPONENT_TYPE)blue alpha:(JST_COLOR_COMPONENT_TYPE)alpha
 {
     _red = red;
     _green = green;
@@ -155,42 +157,42 @@
     _alpha = alpha;
 }
 
-- (uint8_t)red
+- (JST_COLOR_COMPONENT_TYPE)red
 {
     return _red;
 }
 
-- (void)setRed:(uint8_t)red
+- (void)setRed:(JST_COLOR_COMPONENT_TYPE)red
 {
     _red = red;
 }
 
-- (uint8_t)green
+- (JST_COLOR_COMPONENT_TYPE)green
 {
     return _green;
 }
 
-- (void)setGreen:(uint8_t)green
+- (void)setGreen:(JST_COLOR_COMPONENT_TYPE)green
 {
     _green = green;
 }
 
-- (uint8_t)blue
+- (JST_COLOR_COMPONENT_TYPE)blue
 {
     return _blue;
 }
 
-- (void)setBlue:(uint8_t)blue
+- (void)setBlue:(JST_COLOR_COMPONENT_TYPE)blue
 {
     _blue = blue;
 }
 
-- (uint8_t)alpha
+- (JST_COLOR_COMPONENT_TYPE)alpha
 {
     return _alpha;
 }
 
-- (void)setAlpha:(uint8_t)alpha
+- (void)setAlpha:(JST_COLOR_COMPONENT_TYPE)alpha
 {
     _alpha = alpha;
 }
@@ -213,40 +215,87 @@
     return self.cssString;
 }
 
-- (SystemColor *)toSystemColorWithColorSpace:(NSColorSpace *)colorSpace
+- (SystemColor *)toSystemColorWithColorSpace:(SystemColorSpace)colorSpace
 {
+#if TARGET_OS_IPHONE
+    NSAssert(CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelRGB || CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelMonochrome, @"unsupported color model");
+#else
     NSAssert(colorSpace.colorSpaceModel == NSColorSpaceModelRGB || colorSpace.colorSpaceModel == NSColorSpaceModelGray,
              @"unsupported color model");
+#endif
+    
+#if TARGET_OS_IPHONE
+    if (CGColorSpaceGetModel(colorSpace) == kCGColorSpaceModelRGB) {
+        CGFloat components[5];
+        bzero(components, sizeof(components));
+        components[0] = (CGFloat)_red / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[1] = (CGFloat)_green / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[2] = (CGFloat)_blue / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[3] = (CGFloat)_alpha / JST_COLOR_COMPONENT_MAX_VALUE;
+        CGColorRef cgColor = CGColorCreate(colorSpace, components);
+        SystemColor *color = [SystemColor colorWithCGColor:cgColor];
+        CGColorRelease(cgColor);
+        return color;
+    } else {
+        CGFloat _gray = 0.299 * (CGFloat)_red / JST_COLOR_COMPONENT_MAX_VALUE + 0.587 * (CGFloat)_green / JST_COLOR_COMPONENT_MAX_VALUE + 0.114 * (CGFloat)_blue / JST_COLOR_COMPONENT_MAX_VALUE;
+        CGFloat components[3];
+        bzero(components, sizeof(components));
+        components[0] = (CGFloat)_gray / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[1] = (CGFloat)_alpha / JST_COLOR_COMPONENT_MAX_VALUE;
+        CGColorRef cgColor = CGColorCreate(colorSpace, components);
+        SystemColor *color = [SystemColor colorWithCGColor:cgColor];
+        CGColorRelease(cgColor);
+        return color;
+    }
+#else
     if (colorSpace.colorSpaceModel == NSColorSpaceModelRGB) {
-        CGFloat components[4];
-        components[0] = (CGFloat)_red / 255.f;
-        components[1] = (CGFloat)_green / 255.f;
-        components[2] = (CGFloat)_blue / 255.f;
-        components[3] = (CGFloat)_alpha / 255.f;
+        CGFloat components[5];
+        bzero(components, sizeof(components));
+        components[0] = (CGFloat)_red / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[1] = (CGFloat)_green / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[2] = (CGFloat)_blue / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[3] = (CGFloat)_alpha / JST_COLOR_COMPONENT_MAX_VALUE;
         return [SystemColor colorWithColorSpace:colorSpace components:components count:4];
     } else {
-        CGFloat _gray = 0.299 * (CGFloat)_red / 255.f + 0.587 * (CGFloat)_green / 255.f + 0.114 * (CGFloat)_blue / 255.f;
-        CGFloat components[2];
-        components[0] = (CGFloat)_gray / 255.f;
-        components[1] = (CGFloat)_alpha / 255.f;
+        CGFloat _gray = 0.299 * (CGFloat)_red / JST_COLOR_COMPONENT_MAX_VALUE + 0.587 * (CGFloat)_green / JST_COLOR_COMPONENT_MAX_VALUE + 0.114 * (CGFloat)_blue / JST_COLOR_COMPONENT_MAX_VALUE;
+        CGFloat components[3];
+        bzero(components, sizeof(components));
+        components[0] = (CGFloat)_gray / JST_COLOR_COMPONENT_MAX_VALUE;
+        components[1] = (CGFloat)_alpha / JST_COLOR_COMPONENT_MAX_VALUE;
         return [SystemColor colorWithColorSpace:colorSpace components:components count:2];
     }
+#endif
 }
 
 - (void)setColorWithSystemColor:(SystemColor *)systemColor
 {
-    NSDictionary *colorDic = [self getRGBDictionaryFromSystemColor:systemColor];
-    _red = (uint8_t)([colorDic[@"R"] floatValue] * 255);
-    _green = (uint8_t)([colorDic[@"G"] floatValue] * 255);
-    _blue = (uint8_t)([colorDic[@"B"] floatValue] * 255);
-    _alpha = (uint8_t)([colorDic[@"A"] floatValue] * 255);
+    NSDictionary *colorDict = [self getRGBDictionaryFromSystemColor:systemColor];
+    
+    _red = (JST_COLOR_COMPONENT_TYPE)([colorDict[@"R"] doubleValue] * JST_COLOR_COMPONENT_MAX_VALUE);
+    _green = (JST_COLOR_COMPONENT_TYPE)([colorDict[@"G"] doubleValue] * JST_COLOR_COMPONENT_MAX_VALUE);
+    _blue = (JST_COLOR_COMPONENT_TYPE)([colorDict[@"B"] doubleValue] * JST_COLOR_COMPONENT_MAX_VALUE);
+    _alpha = (JST_COLOR_COMPONENT_TYPE)([colorDict[@"A"] doubleValue] * JST_COLOR_COMPONENT_MAX_VALUE);
 }
 
 - (NSDictionary *)getRGBDictionaryFromSystemColor:(SystemColor *)systemColor
 {
+#if TARGET_OS_IPHONE
+    NSAssert(CGColorSpaceGetModel(CGColorGetColorSpace(systemColor.CGColor)) == kCGColorSpaceModelRGB || CGColorSpaceGetModel(CGColorGetColorSpace(systemColor.CGColor)) == kCGColorSpaceModelMonochrome, @"unsupported color model");
+#else
     NSAssert(systemColor.colorSpace.colorSpaceModel == NSColorSpaceModelRGB || systemColor.colorSpace.colorSpaceModel == NSColorSpaceModelGray,
              @"unsupported color model");
+#endif
+    
     CGFloat r = 0, g = 0, b = 0, a = 0, w = 0;
+#if TARGET_OS_IPHONE
+    if (![systemColor getRed:&r green:&g blue:&b alpha:&a]) {
+        if ([systemColor getWhite:&w alpha:&a]) {
+            r = w;
+            g = w;
+            b = w;
+        }
+    }
+#else
     if (systemColor.numberOfComponents == 4) {
         if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
             [systemColor getRed:&r green:&g blue:&b alpha:&a];
@@ -271,6 +320,8 @@
             a = components[1];
         }
     }
+#endif
+    
     return @{
         @"R":@(r),
         @"G":@(g),

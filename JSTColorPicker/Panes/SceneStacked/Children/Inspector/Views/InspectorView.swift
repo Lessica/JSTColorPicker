@@ -116,10 +116,6 @@ final class InspectorView: NSControl {
         let systemColor = color.toNSColor(with: image.colorSpace)
         colorView.color = systemColor
         
-        hexLabel.stringValue = String(systemColor.sharpCSS.dropFirst())
-        xLabel.stringValue = String(color.coordinate.x)
-        yLabel.stringValue = String(color.coordinate.y)
-        
         let convertedColor: NSColor?
         switch inspectorFormat {
         case .original:
@@ -132,13 +128,18 @@ final class InspectorView: NSControl {
             convertedColor = systemColor.usingColorSpace(.adobeRGB1998)
         }
         
+        xLabel.stringValue = String(color.coordinate.x)
+        yLabel.stringValue = String(color.coordinate.y)
+        
         if isHSBFormat {
             
             if let convertedColor = convertedColor {
+                hexLabel.stringValue = String(convertedColor.sharpCSS.dropFirst())
                 hueLabel.stringValue = String(Int(round(convertedColor.hueComponent * 360)))
                 saturationLabel.stringValue = String(Int(round(convertedColor.saturationComponent * 100)))
                 brightnessLabel.stringValue = String(Int(round(convertedColor.brightnessComponent * 100)))
             } else {
+                hexLabel.stringValue = "-"
                 hueLabel.stringValue = "-"
                 saturationLabel.stringValue = "-"
                 brightnessLabel.stringValue = "-"
@@ -153,10 +154,12 @@ final class InspectorView: NSControl {
         } else {
             
             if let convertedColor = convertedColor {
+                hexLabel.stringValue = String(convertedColor.sharpCSS.dropFirst())
                 redLabel.stringValue = String(Int(round(convertedColor.redComponent * 0xFF)))
                 greenLabel.stringValue = String(Int(round(convertedColor.greenComponent * 0xFF)))
                 blueLabel.stringValue = String(Int(round(convertedColor.blueComponent * 0xFF)))
             } else {
+                hexLabel.stringValue = "-"
                 redLabel.stringValue = "-"
                 greenLabel.stringValue = "-"
                 blueLabel.stringValue = "-"
