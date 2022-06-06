@@ -250,16 +250,22 @@ NS_INLINE CGAffineTransform SDCGContextTransformFromOrientation(CGImagePropertyO
 
 #pragma mark - JSTPixelImage
 
-NS_INLINE JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg, CGColorSpaceRef *cgColorSpace) {
-    JST_IMAGE *pixels_image = NULL;
+NS_INLINE JST_IMAGE *JSTCreatePixelImageWithCGImage(CGImageRef cgimg, CGColorSpaceRef *cgColorSpace)
+{
     CGSize imgSize = CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg));
-    pixels_image = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
-    memset(pixels_image, 0, sizeof(JST_IMAGE));
-    pixels_image->width = imgSize.width;
-    pixels_image->height = imgSize.height;
-    JST_COLOR *pixels = (JST_COLOR *)malloc(imgSize.width * imgSize.height * sizeof(JST_COLOR));
-    memset(pixels, 0, imgSize.width * imgSize.height * sizeof(JST_COLOR));
-    pixels_image->pixels = pixels;
+    
+    JST_IMAGE *newPixelImage = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
+    bzero(newPixelImage, sizeof(JST_IMAGE));
+    newPixelImage->width = imgSize.width;
+    newPixelImage->alignedWidth = imgSize.width;
+    newPixelImage->height = imgSize.height;
+    
+    /* New pixel image is not aligned */
+    size_t pixelsSize = imgSize.width * imgSize.height * sizeof(JST_COLOR);
+    JST_COLOR *pixels = (JST_COLOR *)malloc(pixelsSize);
+    bzero(pixels, pixelsSize);
+    newPixelImage->pixels = pixels;
+    
     *cgColorSpace = (CGColorSpaceRef)CFRetain(CGImageGetColorSpace(cgimg));
     CGContextRef context = CGBitmapContextCreate(
         pixels,
@@ -270,20 +276,23 @@ NS_INLINE JST_IMAGE *create_pixels_image_with_cgimage(CGImageRef cgimg, CGColorS
         *cgColorSpace,
         kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedFirst  /* kCGImageAlphaNoneSkipFirst */
     );
+    
     CGContextDrawImage(context, CGRectMake(0, 0, imgSize.width, imgSize.height), cgimg);
     CGContextRelease(context);
-    return pixels_image;
+    return newPixelImage;
 }
 
 #if TARGET_OS_IPHONE
-NS_INLINE JST_IMAGE *create_pixels_image_with_uiimage(UIImage *uiimg, CGColorSpaceRef *cgColorSpace) {
-    return create_pixels_image_with_cgimage(uiimg.CGImage, cgColorSpace);
+NS_INLINE JST_IMAGE *JSTCreatePixelImageWithUIImage(UIImage *uiimg, CGColorSpaceRef *cgColorSpace)
+{
+    return JSTCreatePixelImageWithCGImage(uiimg.CGImage, cgColorSpace);
 }
 #else
-NS_INLINE JST_IMAGE *create_pixels_image_with_nsimage(NSImage *nsimg, CGColorSpaceRef *cgColorSpace) {
+NS_INLINE JST_IMAGE *JSTCreatePixelImageWithNSImage(NSImage *nsimg, CGColorSpaceRef *cgColorSpace)
+{
     CGSize imgSize = nsimg.size;
     CGRect imgRect = CGRectMake(0, 0, imgSize.width, imgSize.height);
-    return create_pixels_image_with_cgimage([nsimg CGImageForProposedRect:&imgRect context:nil hints:nil], cgColorSpace);
+    return JSTCreatePixelImageWithCGImage([nsimg CGImageForProposedRect:&imgRect context:nil hints:nil], cgColorSpace);
 }
 #endif
 
@@ -436,108 +445,119 @@ NS_INLINE JST_IMAGE *create_pixels_image_with_nsimage(NSImage *nsimg, CGColorSpa
 
 #define GET_ROTATE_ROTATE3 GET_ROTATE_ROTATE
 
-FOUNDATION_EXTERN_INLINE void get_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point) {
-    SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
-    if (x < pixels_image->width &&
-        y < pixels_image->height)
+FOUNDATION_EXTERN_INLINE void JSTGetColorInPixelImageSafe(JST_IMAGE *pixelImage, int x, int y, JST_COLOR *colorOfPoint)
+{
+    SHIFT_XY_BY_ORIEN(x, y, pixelImage->width, pixelImage->height, pixelImage->orientation);
+    if (x >= pixelImage->width ||
+        y >= pixelImage->height)
     {
-        color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
+        colorOfPoint->theColor = 0;
         return;
     }
-    color_of_point->the_color = 0;
+    colorOfPoint->theColor = pixelImage->pixels[y * pixelImage->alignedWidth + x].theColor;
 }
 
-FOUNDATION_EXTERN_INLINE void set_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point) {
-    SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
-    if (x < pixels_image->width &&
-        y < pixels_image->height)
-    {
-        pixels_image->pixels[y * pixels_image->width + x].the_color = color_of_point->the_color;
-    }
-}
-
-NS_INLINE void get_color_in_pixels_image_notran(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point) {
-    SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
-    color_of_point->the_color = pixels_image->pixels[y * pixels_image->width + x].the_color;
-}
-
-NS_INLINE CGImageRef create_cgimage_with_pixels_image(JST_IMAGE *pixels_image, CGColorSpaceRef cgColorSpace)
+NS_INLINE void JSTGetColorInPixelImageUnsafe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point)
 {
-    
+    SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
+    color_of_point->theColor = pixels_image->pixels[y * pixels_image->alignedWidth + x].theColor;
+}
+
+FOUNDATION_EXTERN_INLINE void JSTSetColorInPixelImageSafe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point)
+{
+    SHIFT_XY_BY_ORIEN(x, y, pixels_image->width, pixels_image->height, pixels_image->orientation);
+    if (x >= pixels_image->width ||
+        y >= pixels_image->height)
+    {
+        return;
+    }
+    pixels_image->pixels[y * pixels_image->alignedWidth + x].theColor = color_of_point->theColor;
+}
+
+NS_INLINE CGImageRef JSTCreateCGImageWithPixelImage(JST_IMAGE *pixelImage, CGColorSpaceRef cgColorSpace)
+{
     int width, height;
-    switch (pixels_image->orientation) {
+    switch (pixelImage->orientation) {
     case 1:
     case 2:
-        height = pixels_image->width;
-        width = pixels_image->height;
+        height = pixelImage->width;
+        width = pixelImage->height;
         break;
     default:
-        width = pixels_image->width;
-        height = pixels_image->height;
+        width = pixelImage->width;
+        height = pixelImage->height;
         break;
     }
     
-    size_t pixels_buffer_len = (size_t)(width * height * sizeof(JST_COLOR));
-    JST_COLOR *pixels_buffer = (JST_COLOR *)malloc(pixels_buffer_len);
-    if (0 != pixels_image->orientation) {
-        uint64_t big_count_offset = 0;
-        JST_COLOR color_of_point;
+    /* CGImage is not aligned */
+    size_t pixelsBufferLength = (size_t)(width * height * sizeof(JST_COLOR));
+    JST_COLOR *pixelsBuffer = (JST_COLOR *)malloc(pixelsBufferLength);
+    if (0 == pixelImage->orientation && pixelImage->width == pixelImage->alignedWidth) {
+        memcpy(pixelsBuffer, pixelImage->pixels, pixelsBufferLength);
+    } else {
+        uint64_t bigCountOffset = 0;
+        JST_COLOR colorOfPoint;
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                get_color_in_pixels_image_notran(pixels_image, x, y, &color_of_point);
-                pixels_buffer[big_count_offset++].the_color = color_of_point.the_color;
+                JSTGetColorInPixelImageUnsafe(pixelImage, x, y, &colorOfPoint);
+                pixelsBuffer[bigCountOffset++].theColor = colorOfPoint.theColor;
             }
         }
-    } else {
-        memcpy(pixels_buffer, pixels_image->pixels, pixels_buffer_len);
     }
     
-    CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorMalloc, (const UInt8 *)pixels_buffer, pixels_buffer_len, kCFAllocatorMalloc);
-    CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
+    CFDataRef imageData = CFDataCreateWithBytesNoCopy(kCFAllocatorMalloc, (const UInt8 *)pixelsBuffer, pixelsBufferLength, kCFAllocatorMalloc);
+    CGDataProviderRef imageDataProvider = CGDataProviderCreateWithCFData(imageData);
     
-    CGImageRef img = CGImageCreate(
+    CGImageRef cgImage = CGImageCreate(
                                    (size_t)width, (size_t)height,
                                    sizeof(JST_COLOR_COMPONENT_TYPE) * BYTE_SIZE,
                                    sizeof(JST_COLOR_COMPONENT_TYPE) * BYTE_SIZE * JST_COLOR_COMPONENTS_PER_ELEMENT,
                                    JST_COLOR_COMPONENTS_PER_ELEMENT * width, cgColorSpace,
                                    kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedFirst,
-                                   provider, NULL, YES, kCGRenderingIntentDefault
+                                   imageDataProvider, NULL, YES, kCGRenderingIntentDefault
                                    );
     
-    CGDataProviderRelease(provider);
-    CFRelease(data);
+    CGDataProviderRelease(imageDataProvider);
+    CFRelease(imageData);
     
-    return img;
+    return cgImage;
 }
 
-NS_INLINE JST_IMAGE *create_pixels_image_with_pixels_image_rect(JST_IMAGE *pixels_image_, JST_ORIENTATION orien, int x1, int y1, int x2, int y2) {
-    JST_IMAGE *pixels_image = NULL;
-    int oldWidth = pixels_image_->width;
+NS_INLINE JST_IMAGE *JSTCreatePixelImageWithPixelImageInRect(JST_IMAGE *pixelImage, JST_ORIENTATION orientation, int x1, int y1, int x2, int y2)
+{
+    int oldAlignedWidth = pixelImage->alignedWidth;
     int newWidth = x2 - x1;
     int newHeight = y2 - y1;
-    pixels_image = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
-    memset(pixels_image, 0, sizeof(JST_IMAGE));
-    pixels_image->width = newWidth;
-    pixels_image->height = newHeight;
-    JST_COLOR *pixels = (JST_COLOR *)malloc(newWidth * newHeight * sizeof(JST_COLOR));
-    memset(pixels, 0, newWidth * newHeight * sizeof(JST_COLOR));
-    pixels_image->pixels = pixels;
-    uint64_t big_count_offset = 0;
+    
+    JST_IMAGE *newPixelImage = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
+    bzero(newPixelImage, sizeof(JST_IMAGE));
+    newPixelImage->width = newWidth;
+    newPixelImage->alignedWidth = newWidth;
+    newPixelImage->height = newHeight;
+    
+    /* New pixel image is not aligned */
+    size_t newPixelsSize = newWidth * newHeight * sizeof(JST_COLOR);
+    JST_COLOR *newPixels = (JST_COLOR *)malloc(newPixelsSize);
+    bzero(newPixels, newPixelsSize);
+    newPixelImage->pixels = newPixels;
+    
+    uint64_t bigCountOffset = 0;
     for (int y = y1; y < y2; ++y) {
         for (int x = x1; x < x2; ++x) {
-            pixels[big_count_offset++] = pixels_image_->pixels[y * oldWidth + x];
+            newPixels[bigCountOffset++] = pixelImage->pixels[y * oldAlignedWidth + x];
         }
     }
-    GET_ROTATE_ROTATE3(pixels_image_->orientation, orien, pixels_image->orientation);
-    return pixels_image;
+    
+    GET_ROTATE_ROTATE3(pixelImage->orientation, orientation, newPixelImage->orientation);
+    return newPixelImage;
 }
 
-NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
-    if (!pixels_image->is_destroyed) {
-        free(pixels_image->pixels);
-        pixels_image->is_destroyed = true;
+NS_INLINE void JSTFreePixelImage(JST_IMAGE *pixelImage) {
+    if (!pixelImage->isDestroyed) {
+        free(pixelImage->pixels);
+        pixelImage->isDestroyed = true;
     }
-    free(pixels_image);
+    free(pixelImage);
 }
 
 @implementation JSTPixelImage
@@ -554,22 +574,35 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 - (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface colorSpace:(CGColorSpaceRef)colorSpace {
     self = [super init];
     if (self) {
-        OSType pixelFormat = IOSurfaceGetPixelFormat(surface);
-        NSAssert(pixelFormat == 0x42475241 || pixelFormat == 0x0  /* Not Specified */,
-                 @"unsupported pixel format 0x%x", pixelFormat);
-        
-        size_t bytesPerElement = IOSurfaceGetBytesPerElement(surface);
-        NSAssert(bytesPerElement == sizeof(JST_COLOR),
-                 @"unsupported pixel size %ld", bytesPerElement);
         
         _pixelImage = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
         bzero(_pixelImage, sizeof(JST_IMAGE));
         
-        _pixelImage->width = (int)IOSurfaceGetWidth(surface);
-        _pixelImage->height = (int)IOSurfaceGetHeight(surface);
-        _pixelImage->pixels = IOSurfaceGetBaseAddress(surface);
+        size_t width = IOSurfaceGetWidth(surface);
+        size_t height = IOSurfaceGetHeight(surface);
         
-        _pixelImage->is_destroyed = true;
+        OSType pixelFormat = IOSurfaceGetPixelFormat(surface);
+        NSAssert(pixelFormat == 0x42475241 || pixelFormat == 0x0  /* Not Specified */,
+                 @"pixel format not supported 0x%x", pixelFormat);
+        
+        size_t bytesPerElement = IOSurfaceGetBytesPerElement(surface);
+        NSAssert(bytesPerElement == sizeof(JST_COLOR),
+                 @"bpc not supported %ld", bytesPerElement);
+        
+        size_t bytesPerRow = IOSurfaceGetBytesPerRow(surface);
+        NSAssert(bytesPerRow == width * sizeof(JST_COLOR) || (bytesPerRow > width * sizeof(JST_COLOR) && bytesPerRow % 32 == 0),
+                 @"bpr not aligned %ld", bytesPerRow);
+        
+        /* Pixel image from IOSurface is aligned */
+        size_t alignedWidth = bytesPerRow / sizeof(JST_COLOR);
+        void *pixels = IOSurfaceGetBaseAddress(surface);
+        
+        _pixelImage->width = (int)width;
+        _pixelImage->alignedWidth = (int)alignedWidth;
+        _pixelImage->height = (int)height;
+        _pixelImage->pixels = pixels;
+        _pixelImage->isDestroyed = true;
+        
         _colorSpace = CGColorSpaceRetain(colorSpace);
     }
     return self;
@@ -578,7 +611,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 - (JSTPixelImage *)initWithCGImage:(CGImageRef)cgimage {
     self = [super init];
     if (self) {
-        _pixelImage = create_pixels_image_with_cgimage(cgimage, &_colorSpace);
+        _pixelImage = JSTCreatePixelImageWithCGImage(cgimage, &_colorSpace);
     }
     return self;
 }
@@ -591,16 +624,16 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
     self = [super init];
     if (self) {
 #if TARGET_OS_IPHONE
-        _pixelImage = create_pixels_image_with_uiimage(systemImage, &_colorSpace);
+        _pixelImage = JSTCreatePixelImageWithUIImage(systemImage, &_colorSpace);
 #else
-        _pixelImage = create_pixels_image_with_nsimage(systemImage, &_colorSpace);
+        _pixelImage = JSTCreatePixelImageWithNSImage(systemImage, &_colorSpace);
 #endif
     }
     return self;
 }
 
 - (SystemImage *)toSystemImage {
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixelImage, _colorSpace);
+    CGImageRef cgimg = JSTCreateCGImageWithPixelImage(_pixelImage, _colorSpace);
 #if TARGET_OS_IPHONE
     UIImage *img0 = [UIImage imageWithCGImage:cgimg];
 #else
@@ -611,7 +644,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 
 - (NSData *)pngRepresentation {
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixelImage, _colorSpace);
+    CGImageRef cgimg = JSTCreateCGImageWithPixelImage(_pixelImage, _colorSpace);
 #if TARGET_OS_IPHONE
     NSData *data = UIImagePNGRepresentation([UIImage imageWithCGImage:cgimg]);
 #else
@@ -625,14 +658,14 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 
 #if TARGET_OS_IPHONE
 - (NSData *)jpegRepresentationWithCompressionQuality:(CGFloat)compressionQuality {
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixelImage, _colorSpace);
+    CGImageRef cgimg = JSTCreateCGImageWithPixelImage(_pixelImage, _colorSpace);
     NSData *data = UIImageJPEGRepresentation([UIImage imageWithCGImage:cgimg], compressionQuality);
     CGImageRelease(cgimg);
     return data;
 }
 #else
 - (NSData *)tiffRepresentation {
-    CGImageRef cgimg = create_cgimage_with_pixels_image(_pixelImage, _colorSpace);
+    CGImageRef cgimg = JSTCreateCGImageWithPixelImage(_pixelImage, _colorSpace);
     NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgimg];
     [newRep setSize:CGSizeMake(CGImageGetWidth(cgimg), CGImageGetHeight(cgimg))];
     NSData *data = [newRep representationUsingType:NSBitmapImageFileTypeTIFF properties:@{}];
@@ -649,7 +682,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
     SHIFT_RECT_BY_ORIEN(x1, y1, x2, y2, _pixelImage->width, _pixelImage->height, _pixelImage->orientation);
     y2 = (y2 > _pixelImage->height) ? _pixelImage->height : y2;
     x2 = (x2 > _pixelImage->width) ? _pixelImage->width : x2;
-    return [[JSTPixelImage alloc] initWithInternalPointer:create_pixels_image_with_pixels_image_rect(_pixelImage, 0, x1, y1, x2, y2) colorSpace:_colorSpace];
+    return [[JSTPixelImage alloc] initWithInternalPointer:JSTCreatePixelImageWithPixelImageInRect(_pixelImage, 0, x1, y1, x2, y2) colorSpace:_colorSpace];
 }
 
 - (CGSize)size {
@@ -673,36 +706,36 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 
 - (JSTPixelColor *)getJSTColorOfPoint:(CGPoint)point {
-    JST_COLOR color_of_point;
-    get_color_in_pixels_image_safe(_pixelImage, (int) point.x, (int) point.y, &color_of_point);
-    return [JSTPixelColor colorWithRed:color_of_point.red green:color_of_point.green blue:color_of_point.blue alpha:color_of_point.alpha];
+    JST_COLOR colorOfPoint;
+    JSTGetColorInPixelImageSafe(_pixelImage, (int) point.x, (int) point.y, &colorOfPoint);
+    return [JSTPixelColor colorWithRed:colorOfPoint.red green:colorOfPoint.green blue:colorOfPoint.blue alpha:colorOfPoint.alpha];
 }
 
 - (JST_COLOR_TYPE)getColorOfPoint:(CGPoint)point {
-    JST_COLOR color_of_point;
-    get_color_in_pixels_image_safe(_pixelImage, (int) point.x, (int) point.y, &color_of_point);
-    return color_of_point.the_color;
+    JST_COLOR colorOfPoint;
+    JSTGetColorInPixelImageSafe(_pixelImage, (int) point.x, (int) point.y, &colorOfPoint);
+    return colorOfPoint.theColor;
 }
 
 - (NSString *)getColorHexOfPoint:(CGPoint)point {
-    JST_COLOR color_of_point;
-    get_color_in_pixels_image_safe(_pixelImage, (int) point.x, (int) point.y, &color_of_point);
-    return [[JSTPixelColor colorWithRed:color_of_point.red green:color_of_point.green blue:color_of_point.blue alpha:color_of_point.alpha] hexString];
+    JST_COLOR colorOfPoint;
+    JSTGetColorInPixelImageSafe(_pixelImage, (int) point.x, (int) point.y, &colorOfPoint);
+    return [[JSTPixelColor colorWithRed:colorOfPoint.red green:colorOfPoint.green blue:colorOfPoint.blue alpha:colorOfPoint.alpha] hexString];
 }
 
 - (void)setJSTColor:(JSTPixelColor *)color ofPoint:(CGPoint)point {
-    JST_COLOR color_of_point;
-    color_of_point.red = color.red;
-    color_of_point.green = color.green;
-    color_of_point.blue = color.blue;
-    color_of_point.alpha = 0xff;
-    set_color_in_pixels_image_safe(_pixelImage, (int) point.x, (int) point.y, &color_of_point);
+    JST_COLOR colorOfPoint;
+    colorOfPoint.red = color.red;
+    colorOfPoint.green = color.green;
+    colorOfPoint.blue = color.blue;
+    colorOfPoint.alpha = 0xff;
+    JSTSetColorInPixelImageSafe(_pixelImage, (int) point.x, (int) point.y, &colorOfPoint);
 }
 
 - (void)setColor:(JST_COLOR_TYPE)color ofPoint:(CGPoint)point {
-    JST_COLOR color_of_point;
-    color_of_point.the_color = color;
-    set_color_in_pixels_image_safe(_pixelImage, (int) point.x, (int) point.y, &color_of_point);
+    JST_COLOR colorOfPoint;
+    colorOfPoint.theColor = color;
+    JSTSetColorInPixelImageSafe(_pixelImage, (int) point.x, (int) point.y, &colorOfPoint);
 }
 
 - (void)setOrientation:(JST_ORIENTATION)orientation {
@@ -714,7 +747,7 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 
 - (void)dealloc {
-    free_pixels_image(_pixelImage);
+    JSTFreePixelImage(_pixelImage);
     CGColorSpaceRelease(_colorSpace);
 #if DEBUG
     NSLog(@"- [JSTPixelImage dealloc]");
@@ -722,13 +755,19 @@ NS_INLINE void free_pixels_image(JST_IMAGE *pixels_image) {
 }
 
 - (id)copyWithZone:(NSZone *)zone {
+    
     JST_IMAGE *newImage = (JST_IMAGE *)malloc(sizeof(JST_IMAGE));
     memcpy(newImage, _pixelImage, sizeof(JST_IMAGE));
-    size_t pixelSize = newImage->width * newImage->height * sizeof(JST_COLOR);
+    
+    /* Copied pixel image has the same alignment with the original ones */
+    size_t pixelSize = newImage->alignedWidth * newImage->height * sizeof(JST_COLOR);
     JST_COLOR *pixels = (JST_COLOR *)malloc(pixelSize);
+    
     memcpy(pixels, newImage->pixels, pixelSize);
+    
     newImage->pixels = pixels;
-    newImage->is_destroyed = NO;
+    newImage->isDestroyed = NO;
+    
     return [[JSTPixelImage alloc] initWithInternalPointer:newImage colorSpace:_colorSpace];
 }
 

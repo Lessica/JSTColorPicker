@@ -11,9 +11,10 @@ typedef struct JST_IMAGE JST_IMAGE;
 struct JST_IMAGE {
     JST_ORIENTATION orientation;
     int width;
+    int alignedWidth;
     int height;
     JST_COLOR *pixels;
-    JST_BOOL is_destroyed;
+    JST_BOOL isDestroyed;
 };
 
 #endif /* JST_IMAGE_h */

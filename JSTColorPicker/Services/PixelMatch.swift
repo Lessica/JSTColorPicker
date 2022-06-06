@@ -43,7 +43,7 @@ public func PixelMatch(a32: inout [JST_COLOR], b32: inout [JST_COLOR], output: i
     let len = width * height
     var identical = true
     for i in 0..<len {
-        if a32[i].the_color != b32[i].the_color { identical = false; break; }
+        if a32[i].theColor != b32[i].theColor { identical = false; break; }
     }
     if identical { // fast path if identical
         if !options.diffMask {
@@ -157,7 +157,7 @@ private func hasManySiblings(img: inout [JST_COLOR], x1: Int, y1: Int, width: In
             if x == x1 && y == y1 { continue }
             
             let pos2 = y * width + x
-            if img[pos].the_color == img[pos2].the_color { zeroes += 1 }
+            if img[pos].theColor == img[pos2].theColor { zeroes += 1 }
             if zeroes > 2 { return true }
         }
     }
@@ -169,7 +169,7 @@ private func hasManySiblings(img: inout [JST_COLOR], x1: Int, y1: Int, width: In
 // using YIQ NTSC transmission color space in mobile applications" by Y. Kotsarenko and F. Ramos
 
 private func colorDelta(color1: JST_COLOR, color2: JST_COLOR, yOnly: Bool = false) -> CGFloat {
-    if color1.the_color == color2.the_color { return 0 }
+    if color1.theColor == color2.theColor { return 0 }
     
     var a1 = CGFloat(color1.alpha)
     , r1 = CGFloat(color1.red)
@@ -210,7 +210,7 @@ private func rgb2q(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> CGFloat { return
 // blend semi-transparent color with white
 private func blend(_ component: CGFloat, _ alpha: CGFloat) -> CGFloat   { return 255.0 + (component - 255.0) * alpha }
 private func drawPixel(output: inout [JST_COLOR], pos: Int, r: UInt8, g: UInt8, b: UInt8) {
-    output[pos] = JST_COLOR(the_color: 0xff000000 | UInt32(b) << 16 | UInt32(g) << 8 | UInt32(r))
+    output[pos] = JST_COLOR(theColor: 0xff000000 | UInt32(b) << 16 | UInt32(g) << 8 | UInt32(r))
 }
 private func drawGrayPixel(color: JST_COLOR, pos: Int, alpha: CGFloat, output: inout [JST_COLOR]) {
     let val = UInt8(blend(rgb2y(CGFloat(color.red), CGFloat(color.green), CGFloat(color.blue)), alpha * CGFloat(color.alpha) / 255.0))

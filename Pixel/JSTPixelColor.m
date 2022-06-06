@@ -51,7 +51,7 @@
     color.green = _green;
     color.blue = _blue;
     color.alpha = _alpha;
-    return color.the_color;
+    return color.theColor;
 }
 
 - (JST_COLOR_TYPE)rgbValue
@@ -61,7 +61,7 @@
     color.green = _green;
     color.blue = _blue;
     color.alpha = 0;
-    return color.the_color;
+    return color.theColor;
 }
 
 - (NSString *)hexStringWithAlpha
@@ -71,7 +71,7 @@
     color.green = _green;
     color.blue = _blue;
     color.alpha = _alpha;
-    return [NSString stringWithFormat:@"0x%08x", color.the_color];
+    return [NSString stringWithFormat:@"0x%08x", color.theColor];
 }
 
 - (NSString *)hexString
@@ -81,7 +81,7 @@
     color.green = _green;
     color.blue = _blue;
     color.alpha = 0;
-    return [NSString stringWithFormat:@"0x%06x", color.the_color];
+    return [NSString stringWithFormat:@"0x%06x", color.theColor];
 }
 
 - (NSString *)cssString
@@ -91,7 +91,7 @@
     color.green = _green;
     color.blue = _blue;
     color.alpha = 0;
-    return [NSString stringWithFormat:@"#%06X", color.the_color];
+    return [NSString stringWithFormat:@"#%06X", color.theColor];
 }
 
 - (NSString *)cssRGBAString

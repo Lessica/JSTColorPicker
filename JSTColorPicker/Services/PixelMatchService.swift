@@ -125,7 +125,7 @@ final class PixelMatchService {
             }
             
             var threadOutputs0 = [JST_COLOR](
-                repeating: JST_COLOR(the_color: 0),
+                repeating: JST_COLOR(theColor: 0),
                 count: processCount
             )
             var a32 = Array(UnsafeBufferPointer(
@@ -173,8 +173,9 @@ final class PixelMatchService {
         
         let img = UnsafeMutablePointer<JST_IMAGE>.allocate(capacity: 1)
         img.pointee.orientation = 0
-        img.pointee.is_destroyed = 0
+        img.pointee.isDestroyed = 0
         img.pointee.width = Int32(totalColumns)
+        img.pointee.alignedWidth = Int32(totalColumns)
         img.pointee.height = Int32(totalRows)
         img.pointee.pixels = outputsPointer.baseAddress
         isProcessing = false

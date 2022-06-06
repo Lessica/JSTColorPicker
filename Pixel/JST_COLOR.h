@@ -12,7 +12,7 @@ typedef union JST_COLOR JST_COLOR;
 
 /* Color Struct */
 union JST_COLOR {
-    JST_COLOR_TYPE the_color; /* the_color is name of color value */
+    JST_COLOR_TYPE theColor; /* theColor is name of color value */
     struct { /* RGB struct */
         JST_COLOR_COMPONENT_TYPE blue;
         JST_COLOR_COMPONENT_TYPE green;

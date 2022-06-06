@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXTERN void get_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point);
-FOUNDATION_EXTERN void set_color_in_pixels_image_safe(JST_IMAGE *pixels_image, int x, int y, JST_COLOR *color_of_point);
+FOUNDATION_EXTERN void JSTGetColorInPixelImageSafe(JST_IMAGE *pixelImage, int x, int y, JST_COLOR *colorOfPoint);
+FOUNDATION_EXTERN void JSTSetColorInPixelImageSafe(JST_IMAGE *pixelImage, int x, int y, JST_COLOR *colorOfPoint);
 
 @interface JSTPixelImage (Private)
 - (JSTPixelImage *)initWithCompatibleScreenSurface:(IOSurfaceRef)surface colorSpace:(CGColorSpaceRef)colorSpace;
