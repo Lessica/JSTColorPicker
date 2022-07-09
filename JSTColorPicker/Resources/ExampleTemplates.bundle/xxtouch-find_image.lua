@@ -31,10 +31,11 @@ return {
     uuid = "6A9FF9FC-701B-4A2D-A79D-BE5E1E805FC0",
     name = "\xe2\x80\x8b\xe2\x80\x8b\xe2\x80\x8b\xe2\x80\x8bXXTouch 屏幕找图",
     version = "1.0",
-    platformVersion = "2.2",
+    platformVersion = "2.12",
     author = "xtzn",
     extension = "lua",
     enabled = true,
     previewable = true,
     generator = generator,
+    colorSpace = "sRGB",
 }

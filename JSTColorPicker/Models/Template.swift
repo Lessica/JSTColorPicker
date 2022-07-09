@@ -140,6 +140,7 @@ final class Template {
     private(set) var userDescription      : String?
     private(set) var userExtension        : String?
     private(set) var allowedExtensions    : [String]
+    private(set) var colorSpace           : InspectorFormat = .original
 
     private(set) var isAsync              : Bool
     private(set) var isEnabled            : Bool
@@ -197,6 +198,12 @@ final class Template {
                 self.userExtension = nil
                 self.allowedExtensions = []
             }
+            
+            if let colorSpaceName = stringDict["colorSpace"] {
+                if let colorSpace = InspectorFormat(rawValue: colorSpaceName) {
+                    self.colorSpace = colorSpace
+                }
+            }
 
             if let async = boolDict["async"] {
                 self.isAsync = async
@@ -242,12 +249,33 @@ final class Template {
             throw Error.resourceBusy
         }
         
-        let execContent = Content(items: items)
-        let results = generator.call([
-            image,
-            execContent,
-            action,
-        ])
+        var targetColorSpace: NSColorSpace?
+        switch colorSpace {
+        case .original:
+            break
+        case .displayP3:
+            targetColorSpace = .displayP3
+        case .sRGB:
+            targetColorSpace = .sRGB
+        case .adobeRGB1998:
+            targetColorSpace = .adobeRGB1998
+        }
+        
+        var convertedItems = [ContentItem]()
+        for item in items {
+            if let targetColorSpace = targetColorSpace,
+               let color = item as? PixelColor
+            {
+                convertedItems.append(color.copyEquivalentColor(inImage: image, ofColorSpace: targetColorSpace))
+            }
+            else
+            {
+                convertedItems.append(item.copy() as! ContentItem)
+            }
+        }
+        
+        let execContent = Content(items: convertedItems)
+        let results = generator.call([ image, execContent, action ])
         
         mutexLock.unlock()
         

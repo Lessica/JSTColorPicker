@@ -109,6 +109,10 @@ final class PixelColor: ContentItem {
         return pixelColorRep.toSystemColor(with: colorSpace)
     }
     
+    public func toNSColor(from colorSpaceFrom: NSColorSpace, to colorSpaceTo: NSColorSpace) -> NSColor {
+        return toNSColor(with: colorSpaceFrom).usingColorSpace(colorSpaceTo)!
+    }
+    
     override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? PixelColor else { return false }
         return self == object

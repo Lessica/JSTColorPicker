@@ -18,10 +18,11 @@ return {
     uuid = "815BC1C6-67E6-4AED-A5BA-99474CD8C42C",
     name = "\xe2\x80\x8b\xe2\x80\x8bXXTouch 屏幕多点颜色匹配",
     version = "1.0",
-    platformVersion = "2.2",
+    platformVersion = "2.12",
     author = "xtzn",
     extension = "lua",
     enabled = true,
     previewable = true,
     generator = generator,
+    colorSpace = "sRGB",
 }

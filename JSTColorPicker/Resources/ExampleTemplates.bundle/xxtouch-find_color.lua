@@ -17,10 +17,11 @@ return {
     uuid = "0D7B59F5-4F47-4EDA-B4B0-F0A047C1784D",
     name = "\xe2\x80\x8b\xe2\x80\x8b\xe2\x80\x8bXXTouch 多点相似度模式找色",
     version = "1.0",
-    platformVersion = "2.2",
+    platformVersion = "2.12",
     author = "xtzn",
     extension = "lua",
     enabled = true,
     previewable = true,
     generator = generator,
+    colorSpace = "sRGB",
 }

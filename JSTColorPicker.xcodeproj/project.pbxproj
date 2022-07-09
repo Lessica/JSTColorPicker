@@ -323,6 +323,8 @@
 		CC470AAA262DEBD70013A3B7 /* Purchase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC470AAC262DEBD70013A3B7 /* Purchase.storyboard */; };
 		CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */; };
 		CC4DF3432815C191002CC8A4 /* PADKeyWindow+Movable.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4DF3412815C127002CC8A4 /* PADKeyWindow+Movable.m */; };
+		CC500DB62879821000D896CC /* PixelColor+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC500DB52879820100D896CC /* PixelColor+Export.swift */; };
+		CC500DB72879821000D896CC /* PixelColor+Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC500DB52879820100D896CC /* PixelColor+Export.swift */; };
 		CC515BAE27E8DA6E0081A233 /* EditAssociatedValuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */; };
 		CC515BAF27E8DA6F0081A233 /* EditAssociatedValuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD04E2827E8D1A900C43E64 /* EditAssociatedValuesController.swift */; };
 		CC548099275E4A5100B7652C /* BrowserPreviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54809C275E4A5100B7652C /* BrowserPreviewView.xib */; };
@@ -1617,6 +1619,7 @@
 		CC470ABF262DEBFE0013A3B7 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		CC4DF3402815C127002CC8A4 /* PADKeyWindow+Movable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PADKeyWindow+Movable.h"; sourceTree = "<group>"; };
 		CC4DF3412815C127002CC8A4 /* PADKeyWindow+Movable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PADKeyWindow+Movable.m"; sourceTree = "<group>"; };
+		CC500DB52879820100D896CC /* PixelColor+Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PixelColor+Export.swift"; sourceTree = "<group>"; };
 		CC54809B275E4A5100B7652C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/BrowserPreviewView.xib; sourceTree = "<group>"; };
 		CC54809E275E4A5300B7652C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BrowserPreviewView.strings; sourceTree = "<group>"; };
 		CC5480A0275E4A5400B7652C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BrowserPreviewView.strings"; sourceTree = "<group>"; };
@@ -3452,6 +3455,7 @@
 				D645E49C23E805EA0039F4F6 /* PixelRect.swift */,
 				CCFD99B5276A39020012E5AF /* PixelRect+Lua.swift */,
 				D682FC9623D6ED2C00DA1750 /* PixelColor.swift */,
+				CC500DB52879820100D896CC /* PixelColor+Export.swift */,
 				D645E4A023E8080E0039F4F6 /* PixelArea.swift */,
 				D635BEAC23CD8CE500FD62B8 /* PixelImage.swift */,
 			);
@@ -5107,6 +5111,7 @@
 				CC3F5BB1281ABF5000CD53CB /* NSView+Swizzling.swift in Sources */,
 				D61047AD24224A170002E990 /* DraggingOverlay.swift in Sources */,
 				D61047AE24224A170002E990 /* GridWindow.swift in Sources */,
+				CC500DB62879821000D896CC /* PixelColor+Export.swift in Sources */,
 				CC6882C828214B9400A512E9 /* AppDelegate+Tag.swift in Sources */,
 				D61047AF24224A170002E990 /* Annotator.swift in Sources */,
 				CCB635D0280FF7D700CF9D74 /* PaddleLicenseActivationWindowController.swift in Sources */,
@@ -5280,6 +5285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC500DB72879821000D896CC /* PixelColor+Export.swift in Sources */,
 				CCE901712626BAF700C84904 /* Observable.swift in Sources */,
 				CC0B60AE281C46F000BB96E0 /* NSColor+HSV.swift in Sources */,
 				CC470AC1262DEBFE0013A3B7 /* PurchaseController.swift in Sources */,
