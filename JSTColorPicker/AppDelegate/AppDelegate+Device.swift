@@ -496,7 +496,7 @@ extension AppDelegate {
                 windowController.showSheet(loadingAlert) { resp in
                     // TODO: cancel connection or download
                 }
-                return self.promiseResolveBonjourDevice(byHostName: selectedIdentifier)
+                return self.promiseResolveBonjourDevice(byHostName: String(selectedIdentifier.suffix(selectedIdentifier.count - BonjourDevice.uniquePrefix.count)))
             }.then { [unowned self] (device: BonjourDevice) -> Promise<SocketAddress> in
                 loadingAlert.messageText = NSLocalizedString("Wait for device", comment: "takeScreenshot(_:)")
                 loadingAlert.informativeText = String(format: NSLocalizedString("Download screenshot from device “%@”…", comment: "takeScreenshot(_:)"), device.name.isEmpty ? device.hostName : device.name)

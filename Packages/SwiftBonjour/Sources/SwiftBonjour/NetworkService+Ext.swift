@@ -42,18 +42,34 @@ extension NetService {
             if sockAddrData.count == MemoryLayout<sockaddr_in>.size {
                 let sockAddrBytes = UnsafeMutableBufferPointer<sockaddr_in>.allocate(capacity: sockAddrData.count)
                 assert(sockAddrData.copyBytes(to: sockAddrBytes) == MemoryLayout<sockaddr_in>.size)
-                if var sinAddr = sockAddrBytes.baseAddress?.pointee.sin_addr,
-                   let ipAddr = IPv4Address(Data(bytes: &sinAddr.s_addr, count: MemoryLayout<in_addr_t>.size))
+                var isLocalLinkAddr = false
+                if let sAddr = sockAddrBytes.baseAddress?.pointee.sin_addr.s_addr {
+                    isLocalLinkAddr = sAddr & 0x0000ffff == 0x0000fea9
+                }
+                if !isLocalLinkAddr
                 {
-                    ipAddrs.append(ipAddr)
+                    if var sinAddr = sockAddrBytes.baseAddress?.pointee.sin_addr,
+                       let ipAddr = IPv4Address(Data(bytes: &sinAddr.s_addr, count: MemoryLayout<in_addr_t>.size))
+                    {
+                        ipAddrs.append(ipAddr)
+                    }
                 }
             } else if sockAddrData.count == MemoryLayout<sockaddr_in6>.size {
                 let sockAddrBytes = UnsafeMutableBufferPointer<sockaddr_in6>.allocate(capacity: sockAddrData.count)
                 assert(sockAddrData.copyBytes(to: sockAddrBytes) == MemoryLayout<sockaddr_in6>.size)
-                if var sinAddr = sockAddrBytes.baseAddress?.pointee.sin6_addr,
-                   let ipAddr = IPv6Address(Data(bytes: &sinAddr, count: MemoryLayout<in6_addr_t>.size))
+                var isLocalLinkAddr = false
+                // Get the sin6_addr part of the sockaddr as UInt8 "array":
+                if let s6_addr = sockAddrBytes.baseAddress?.pointee.sin6_addr.__u6_addr.__u6_addr8 {
+                    // Check for link-local address:
+                    isLocalLinkAddr = s6_addr.0 == 0xfe && (s6_addr.1 & 0xc0) == 0x80
+                }
+                if !isLocalLinkAddr
                 {
-                    ipAddrs.append(ipAddr)
+                    if var sinAddr = sockAddrBytes.baseAddress?.pointee.sin6_addr,
+                       let ipAddr = IPv6Address(Data(bytes: &sinAddr, count: MemoryLayout<in6_addr_t>.size))
+                    {
+                        ipAddrs.append(ipAddr)
+                    }
                 }
             }
         }
