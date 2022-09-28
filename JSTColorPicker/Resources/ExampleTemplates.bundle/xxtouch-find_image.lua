@@ -1,26 +1,19 @@
 local generator = function (image, items)
-    local function chunk(text, size)
-        local s = {}
-        for i = 1, #text, size do
-            s[#s + 1] = text:sub(i, i + size - 1)
-        end
-        return s
-    end
     local processed = false
-    local str = "x, y = screen.find_image("
+    local str = "x1, y1, x2, y2, sim = screen.find_image("
     local extraEndings = ""
-    str = str .. "[[\n"
+    str = str .. "\""
     for _, a in ipairs(items) do
         if a.width ~= nil then
-            str = str .. table.concat(chunk(image.get_image(a.minX, a.minY, a.width, a.height):gsub(".", function (c)
+            str = str .. image.get_image(a.minX, a.minY, a.width, a.height):gsub(".", function (c)
                 return string.format("\\x%02x", string.byte(c))
-            end), 32), "\n")
-            extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0) .. ", " .. tostring(a.minX) .. ", " .. tostring(a.minY) .. ", " .. tostring(a.maxX) .. ", " .. tostring(a.maxY)
+            end)
+            extraEndings = ", " .. string.format("%6.2f", a.similarity * 100.0)
             processed = true
             break
         end
     end
-    str = str .. "\n]]" .. extraEndings .. ")"
+    str = str .. "\"" .. extraEndings .. ")"
     if processed then
         return str
     end
