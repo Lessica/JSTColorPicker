@@ -31,7 +31,28 @@ struct BonjourDevice: Codable, Hashable, Device {
         self.hostName = netService.hostName ?? ""
         self.port = netService.port
         self.txtRecord = netService.txtRecordDictionary ?? [:]
-        self.ipAddresses = netService.ipAddresses.map({ String(describing: $0) })
+        self.ipAddresses = netService.ipAddresses.map({
+            if let v4Addr = $0 as? IPv4Address {
+                var ipAddressBuffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
+                _ = v4Addr.rawValue.withUnsafeBytes {
+                    inet_ntop(AF_INET, $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
+                              &ipAddressBuffer, socklen_t(INET_ADDRSTRLEN))
+                }
+                let ipAddressString = String.init(cString: ipAddressBuffer)
+                precondition(!ipAddressString.hasPrefix("0."))
+                return ipAddressString
+            }
+            else if let v6Addr = $0 as? IPv6Address {
+                var ipAddressBuffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
+                _ = v6Addr.rawValue.withUnsafeBytes {
+                    inet_ntop(AF_INET6, $0.baseAddress!.assumingMemoryBound(to: UInt8.self),
+                              &ipAddressBuffer, socklen_t(INET6_ADDRSTRLEN))
+                }
+                let ipAddressString = String.init(cString: ipAddressBuffer)
+                return ipAddressString
+            }
+            return String(describing: $0)
+        })
     }
     
     func hash(into hasher: inout Hasher) {
