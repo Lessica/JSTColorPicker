@@ -147,7 +147,9 @@ import Paddle
     private var internalLock = ReadWriteLock()
     private var verificationDetails               : [AnyHashable: Any]?
     private var isTrial                           : Bool
-    private var productType                       : ProductType = .uninitialized {
+//    private var productType                       : ProductType = .uninitialized
+    private var productType                       : ProductType = .subscribed
+    {
         didSet {
             NotificationCenter.default.post(name: PurchaseManager.productTypeDidChangeNotification, object: self)
         }
@@ -170,7 +172,8 @@ import Paddle
         return retVal
     }
     #else
-    internal var expiredAt                        : Date? { paddleProduct.licenseExpiryDate }
+    // internal var expiredAt                        : Date? { paddleProduct.licenseExpiryDate }
+    internal var expiredAt                        : Date? { Date.distantFuture }
     #endif
     
     private static var shortExpiryDateFormatter   : DateFormatter = {

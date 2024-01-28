@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Network
 
 struct BonjourDevice: Codable, Hashable, Device {
     internal init(hostName: String, domain: String, name: String, port: Int, txtRecord: [String : String], ipAddresses: [String]) {

@@ -30,7 +30,7 @@ public enum Kind: String, Codable {
         case .userdata: return LUA_TUSERDATA
         case .lightUserdata: return LUA_TLIGHTUSERDATA
         case .thread: return LUA_TTHREAD
-        case nil: return LUA_TNIL
+        case .`nil`: return LUA_TNIL
 
         case .none:
             fallthrough

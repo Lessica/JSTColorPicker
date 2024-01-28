@@ -148,7 +148,7 @@ static char *userpref_utf16_to_utf8(wchar_t *unistr, long len, long *items_read,
 }
 #endif
 
-const char *userpref_get_config_dir()
+const char *userpref_get_config_dir(void)
 {
 	char *base_config_dir = NULL;
 

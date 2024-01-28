@@ -9,7 +9,7 @@
 import Foundation
 
 final class ReadWriteLock {
-    private var rwlock: pthread_rwlock_t = {
+    private lazy var rwlock: pthread_rwlock_t = {
         var rwlock = pthread_rwlock_t()
         pthread_rwlock_init(&rwlock, nil)
         return rwlock
@@ -32,7 +32,8 @@ final class ReadWriteLock {
     }
 
     func unlock() {
-        pthread_rwlock_unlock(&rwlock)
+        let unlocked = pthread_rwlock_unlock(&rwlock)
+        assert(unlocked == 0)
     }
 
     deinit {

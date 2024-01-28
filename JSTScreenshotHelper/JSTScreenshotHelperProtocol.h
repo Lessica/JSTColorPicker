@@ -31,13 +31,13 @@ typedef void (^JSTScreenshotHandler)(NSData * _Nullable, NSError * _Nullable);
 static const NSErrorDomain kJSTScreenshotError = @"com.jst.error.screenshot";
 
 
-NS_INLINE NSString *RealHomeDirectory() {
+NS_INLINE NSString *RealHomeDirectory(void) {
     struct passwd *pw = getpwuid(getuid());
     if (!pw) { return nil; }
     return [NSString stringWithUTF8String:pw->pw_dir];
 }
 
-NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
+NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath(void) {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
         return [homePath stringByAppendingPathComponent:@"Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist"];
@@ -45,7 +45,7 @@ NS_INLINE NSString *GetJSTColorPickerHelperLaunchAgentPath() {
     return [@"~/Library/LaunchAgents/com.jst.JSTColorPicker.ScreenshotHelper.plist" stringByExpandingTildeInPath];
 }
 
-NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath() {
+NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath(void) {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
         return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/%@/%@", kJSTColorPickerHelperDisplayName, kJSTColorPickerHelperBundleName]];
@@ -53,7 +53,7 @@ NS_INLINE NSString *GetJSTColorPickerHelperApplicationPath() {
     return [[NSString stringWithFormat:@"~/Library/Application Support/%@/%@", kJSTColorPickerHelperDisplayName, kJSTColorPickerHelperBundleName] stringByExpandingTildeInPath];
 }
 
-NS_INLINE NSString *GetJSTColorPickerDeviceSupportPath() {
+NS_INLINE NSString *GetJSTColorPickerDeviceSupportPath(void) {
     NSString *homePath = RealHomeDirectory();
     if (homePath != nil) {
         return [homePath stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Application Support/%@/DeviceSupport", kJSTColorPickerBundleIdentifier]];

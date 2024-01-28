@@ -100,7 +100,7 @@ extension AppDelegate {
                 
                 let item = NSMenuItem(
                     title: "\(template.name) (\(template.version))",
-                    action: #selector(selectTemplateItemTapped(_:)),
+                    action: #selector(self?.selectTemplateItemTapped(_:)),
                     keyEquivalent: keyEqu ?? ""
                 )
                 

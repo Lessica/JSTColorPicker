@@ -5,7 +5,7 @@
 //  Created by Viktor Hundahl Strate on 13/06/2018.
 //
 
-import Cocoa
+import AppKit
 import Foundation
 
 public class JSTColorPanel: NSColorPicker, NSColorPickingCustom {

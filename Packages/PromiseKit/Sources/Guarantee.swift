@@ -54,7 +54,7 @@ public final class Guarantee<T>: Thenable {
         }
     }
 
-    final private class Box<T>: EmptyBox<T> {
+    final private class Box: EmptyBox<T> {
         deinit {
             switch inspect() {
             case .pending:
